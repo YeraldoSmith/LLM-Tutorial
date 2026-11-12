@@ -1,0 +1,82 @@
+[[exercise]]
+id = "linear-shape"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "broadcast-shape"
+kind = "code"
+starter = '''
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+'''
+solution = '''
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+n = max(len(a), len(b))
+a = [1] * (n - len(a)) + a
+b = [1] * (n - len(b)) + b
+result = []
+for x, y in zip(a, b):
+    if x == y or y == 1:
+        result.append(x)
+    elif x == 1:
+        result.append(y)
+    else:
+        print("error")
+        break
+else:
+    print(*result)
+'''
+tests = [
+  { input = "2 3\n3\n", output = "2 3\n" },
+  { input = "2 3\n2 1\n", output = "2 3\n" },
+  { input = "4 1 5\n3 1\n", output = "4 3 5\n" },
+  { input = "2 3\n2\n", output = "error\n" },
+  { input = "8 1 6 1\n7 1 5\n", output = "8 7 6 5\n" },
+  { input = "1\n5\n", output = "5\n" },
+  { input = "3 4\n2 3 4\n", output = "2 3 4\n" },
+  { input = "2 3 4\n3 5\n", output = "error\n" },
+]
+
+[[exercise]]
+id = "star-vs-at"
+kind = "output"
+answer = '''
+[[1, 0], [0, 4]]
+[[1, 2], [3, 4]]
+'''
+
+[[exercise]]
+id = "torch-grad"
+kind = "code"
+requires = ["torch"]
+starter = '''
+import torch
+
+x = torch.tensor(float(input()), requires_grad=True)
+'''
+solution = '''
+import torch
+
+x = torch.tensor(float(input()), requires_grad=True)
+y = x ** 3 + 2 * x
+y.backward()
+print(f"{y.item():.2f} {x.grad.item():.2f}")
+'''
+tests = [
+  { input = "2\n", output = "12.00 14.00\n" },
+  { input = "0\n", output = "0.00 2.00\n" },
+  { input = "-1\n", output = "-3.00 5.00\n" },
+  { input = "3\n", output = "33.00 29.00\n" },
+]
+
+[[exercise]]
+id = "loop-order"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "no-grad"
+kind = "choice"
+answer = 1
