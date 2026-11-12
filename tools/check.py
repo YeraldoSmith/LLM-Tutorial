@@ -18,9 +18,15 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as cf
+import os
 import re
 import sys
 from pathlib import Path
+
+# Many programs run in parallel; keep numeric libraries (PyTorch, NumPy) from each
+# spawning one thread per CPU and starving the others into timeouts.
+for _var in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+    os.environ.setdefault(_var, "1")
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "app"))
