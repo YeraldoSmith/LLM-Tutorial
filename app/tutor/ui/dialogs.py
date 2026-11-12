@@ -118,6 +118,10 @@ class SettingsDialog(QDialog):
         self.online = QCheckBox(tr("label.online_title"))
         self.online.setChecked(bool(settings.get("online_ok")))
         form.addRow("", self.online)
+        self.sanitize = QCheckBox(tr("label.sanitize"))
+        self.sanitize.setToolTip(tr("label.sanitize_tip"))
+        self.sanitize.setChecked(bool(settings.get("sanitize")))
+        form.addRow("", self.sanitize)
         self.paths = {}
         tools = settings.get("tools") or {}
         for lang in ("python", "c", "cpp", "java", "rust", "go", "javascript"):
@@ -144,7 +148,7 @@ class SettingsDialog(QDialog):
 
     def values(self) -> dict:
         return {"font_size": self.font.value(), "timeout": self.timeout.value(),
-                "online_ok": self.online.isChecked(),
+                "online_ok": self.online.isChecked(), "sanitize": self.sanitize.isChecked(),
                 "tools": {k: e.text().strip() for k, e in self.paths.items() if e.text().strip()}}
 
 

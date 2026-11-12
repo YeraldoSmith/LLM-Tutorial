@@ -161,17 +161,47 @@ def _which(*names: str) -> list[str]:
     return found
 
 
+SANITIZE_FLAGS = ["-fsanitize=address,undefined", "-fno-sanitize-recover=all", "-fno-omit-frame-pointer"]
+
+
 class Toolchains:
     """Detects and caches tools. ``settings`` may override paths: {"python": "/usr/bin/python3"}."""
 
     def __init__(self, settings: dict | None = None):
         self.settings = settings or {}
         self._cache: dict[str, Tool] = {}
+        self._asan: dict[str, bool] = {}
         self._lock = threading.Lock()
 
     def reset(self):
         with self._lock:
             self._cache.clear()
+            self._asan.clear()
+
+    def sanitizer_ok(self, lang: str) -> bool:
+        """Whether the C/C++ compiler can build *and run* a program with AddressSanitizer
+        (MinGW on Windows, for example, cannot)."""
+        with self._lock:
+            if lang in self._asan:
+                return self._asan[lang]
+        tool = self.get(lang)
+        ok = False
+        if tool.ok and lang in ("c", "cpp"):
+            with tempfile.TemporaryDirectory(prefix="tutor-asan-") as d:
+                src = Path(d) / ("t.c" if lang == "c" else "t.cpp")
+                src.write_text("int main(void) { return 0; }\n", encoding="utf-8")
+                exe = str(Path(d) / ("t" + EXE))
+                try:
+                    r = subprocess.run(tool.argv + SANITIZE_FLAGS + [str(src), "-o", exe], capture_output=True,
+                                       timeout=60, env=child_env(), **popen_kwargs())
+                    if r.returncode == 0:
+                        ok = subprocess.run([exe], capture_output=True, timeout=30, env=child_env(),
+                                            **popen_kwargs()).returncode == 0
+                except (OSError, subprocess.SubprocessError):
+                    ok = False
+        with self._lock:
+            self._asan[lang] = ok
+        return ok
 
     def get(self, lang: str) -> Tool:
         with self._lock:
@@ -313,8 +343,11 @@ class Toolchains:
                              "__attribute__((constructor)) static void tutor_unbuffered(void)"
                              " { setvbuf(stdout, NULL, _IONBF, 0); }\n", encoding="utf-8")
             std = ["-std=c2x"] if lang == "c" else ["-std=c++2b"]
-            steps.append(Step(tool.argv + std + ["-Wall", "-Wextra", "-g", "-O0", "-fdiagnostics-color=never",
-                                                 src.name, unbuf.name, "-o", exe, "-lm"], "compile"))
+            # Optional memory check: out-of-bounds access, use after free, leaks, integer overflow…
+            # are reported with the line number instead of silently going wrong.
+            check = SANITIZE_FLAGS if self.settings.get("sanitize") and self.sanitizer_ok(lang) else []
+            steps.append(Step(tool.argv + std + ["-Wall", "-Wextra", "-g", "-O0", "-fdiagnostics-color=never"]
+                              + check + [src.name, unbuf.name, "-o", exe, "-lm"], "compile"))
             steps.append(Step([exe], "run"))
         elif lang == "java":
             # English compiler messages and the same number formatting (3.14, not 3,14) everywhere.

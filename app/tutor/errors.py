@@ -80,6 +80,24 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '(?P<t>[^']+)'", "c-format"),
     (("c", "cpp"), r"control reaches end of non-void function", "c-no-return"),
     (("c", "cpp"), r"too (?P<which>many|few) arguments to function '(?P<name>\w+)'", "c-args"),
+    (("c", "cpp"), r"stack smashing detected", "c-stack-smash"),
+    (("c", "cpp"), r"AddressSanitizer: (?:stack|heap|global)-buffer-overflow", "c-asan-overflow"),
+    (("c", "cpp"), r"runtime error: index (?P<idx>-?\d+) out of bounds for type", "c-array-bounds"),
+    (("c", "cpp"), r"AddressSanitizer: heap-use-after-free", "c-asan-uaf"),
+    (("c", "cpp"), r"AddressSanitizer: attempting double-free", "c-asan-double-free"),
+    (("c", "cpp"), r"LeakSanitizer: detected memory leaks", "c-asan-leak"),
+    (("c", "cpp"), r"AddressSanitizer: stack-overflow", "recursion"),
+    (("c", "cpp"), r"AddressSanitizer: SEGV on unknown address (?:0x0{6,}\b|\(nil\))", "c-null"),
+    (("c", "cpp"), r"runtime error: (?:load of|store to|member access within|reference binding to) null pointer", "c-null"),
+    (("c", "cpp"), r"AddressSanitizer: SEGV", "segfault"),
+    (("c", "cpp"), r"runtime error: signed integer overflow", "c-int-overflow"),
+    (("c", "cpp"), r"runtime error: (?:integer )?division by zero", "zero-division"),
+    (("c",), r"assignment to expression with array type", "c-array-assign"),
+    (("cpp",), r"invalid array assignment", "c-array-assign"),
+    (("c", "cpp"), r"'sizeof' on array function parameter '(?P<name>\w+)'", "c-sizeof-param"),
+    (("c",), r"excess elements in array initializer", "c-excess-init"),
+    (("cpp",), r"too many initializers for '\w+ \[\d+\]'", "c-excess-init"),
+    (("c", "cpp"), r"array subscript (?P<idx>-?\d+) is (?:above|below) array bounds", "c-array-bounds"),
     (("c", "cpp"), r"suggest parentheses around assignment used as truth value", "c-assign-if"),
     (("c", "cpp"), r"this '(?P<kw>if|else|for|while)' clause does not guard", "c-misleading-indent"),
     (("c", "cpp"), r"suggest braces around empty body in an? '(?P<kw>if|else|for|while|do)' statement", "c-empty-body"),
@@ -170,6 +188,8 @@ def explain(lang: str, text: str, exit_code: int | None, timed_out: bool, tr) ->
     elif exit_code is not None and not found:
         if exit_code in (-11, 139, 3221225477):
             found.append(tr("err.segfault") or "")
+        elif exit_code in (-8, 136, 3221225620):
+            found.append(tr("err.zero-division") or "")
         elif exit_code in (-6, 134):
             found.append(tr("err.abort") or "")
         elif exit_code in (3221225725,):
