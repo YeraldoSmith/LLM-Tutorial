@@ -176,6 +176,7 @@
   "err.c-undefined-ref": "**Linker error**: no definition of `{name}`. The function may be declared but never implemented, misspelled, or `main` is missing.",
   "err.c-format": "**Format and argument types don't match**: `%{f}` expects `{t}`. Common: `%d` int, `%f` double, `%c` char, `%s` string; `scanf` needs `&` before variables.",
   "err.c-no-return": "The function promises to return a value, but **some path has no `return`**.",
+  "err.c-uninit": "The variable `{name}` is **used before it was given a value**. C does not set variables to 0 automatically: an uninitialised variable holds an **unpredictable \"garbage\" value** that may differ on every run. 👉 Give it a starting value when you declare it, e.g. `int {name} = 0;`.",
   "err.c-brace": "**Braces don't match**: a `}` is probably missing. Keep indentation tidy so pairs are easy to see.",
   "err.c-string": "A string is **missing its closing quote** `\"`.",
   "err.cpp-no-operator": "Operator `{op}` **can't be used with these types**. Often: printing a type that `std::cout` doesn't know, or a wrong type.",
