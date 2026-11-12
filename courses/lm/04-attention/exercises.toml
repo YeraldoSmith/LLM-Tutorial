@@ -1,0 +1,104 @@
+[[exercise]]
+id = "attn-weights"
+kind = "code"
+starter = '''
+import math
+
+q = list(map(float, input().split()))
+n = int(input())
+keys = [list(map(float, input().split())) for _ in range(n)]
+'''
+solution = '''
+import math
+
+q = list(map(float, input().split()))
+n = int(input())
+keys = [list(map(float, input().split())) for _ in range(n)]
+scores = [sum(a * b for a, b in zip(q, k)) / math.sqrt(len(q)) for k in keys]
+m = max(scores)
+e = [math.exp(s - m) for s in scores]
+total = sum(e)
+print(" ".join(f"{x / total:.4f}" for x in e))
+'''
+tests = [
+  { input = "1 0\n2\n1 0\n0 1\n", output = "0.6698 0.3302\n" },
+  { input = "1 1\n3\n1 1\n1 1\n0 0\n", output = "0.4458 0.4458 0.1084\n" },
+  { input = "2 0 0 0\n3\n1 0 0 0\n0 1 0 0\n-1 0 0 0\n", output = "0.6652 0.2447 0.0900\n" },
+  { input = "0.5 -1\n4\n1 2\n-1 -2\n0 0\n3 0\n", output = "0.0486 0.4055 0.1404 0.4055\n" },
+]
+
+[[exercise]]
+id = "causal-mask"
+kind = "code"
+starter = '''
+n = int(input())
+'''
+solution = '''
+n = int(input())
+for i in range(n):
+    print(" ".join("1" if j <= i else "0" for j in range(n)))
+'''
+tests = [
+  { input = "3\n", output = "1 0 0\n1 1 0\n1 1 1\n" },
+  { input = "1\n", output = "1\n" },
+  { input = "5\n", output = "1 0 0 0 0\n1 1 0 0 0\n1 1 1 0 0\n1 1 1 1 0\n1 1 1 1 1\n" },
+]
+
+[[exercise]]
+id = "attn-output"
+kind = "code"
+starter = '''
+import math
+
+q = list(map(float, input().split()))
+n = int(input())
+keys = [list(map(float, input().split())) for _ in range(n)]
+values = [list(map(float, input().split())) for _ in range(n)]
+'''
+solution = '''
+import math
+
+q = list(map(float, input().split()))
+n = int(input())
+keys = [list(map(float, input().split())) for _ in range(n)]
+values = [list(map(float, input().split())) for _ in range(n)]
+scores = [sum(a * b for a, b in zip(q, k)) / math.sqrt(len(q)) for k in keys]
+m = max(scores)
+e = [math.exp(s - m) for s in scores]
+w = [x / sum(e) for x in e]
+out = [sum(wj * v[i] for wj, v in zip(w, values)) for i in range(len(values[0]))]
+print(" ".join(f"{x:.4f}" for x in out))
+'''
+tests = [
+  { input = "1 0\n2\n1 0\n0 1\n10 0\n0 10\n", output = "6.6976 3.3024\n" },
+  { input = "1 1\n3\n1 1\n1 1\n0 0\n1 2\n3 4\n5 6\n", output = "2.3252 3.3252\n" },
+  { input = "0 0\n3\n1 0\n0 1\n5 5\n1\n2\n3\n", output = "2.0000\n" },
+  { input = "2 0 0 0\n3\n1 0 0 0\n0 1 0 0\n-1 0 0 0\n1 0\n0 1\n1 1\n", output = "0.7553 0.3348\n" },
+]
+
+[[exercise]]
+id = "mha-params"
+kind = "code"
+starter = '''
+d, bias = map(int, input().split())
+'''
+solution = '''
+d, bias = map(int, input().split())
+print(4 * d * d + (4 * d if bias else 0))
+'''
+tests = [
+  { input = "768 1\n", output = "2362368\n" },
+  { input = "4096 0\n", output = "67108864\n" },
+  { input = "64 1\n", output = "16640\n" },
+  { input = "512 0\n", output = "1048576\n" },
+]
+
+[[exercise]]
+id = "why-scale"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "quadratic"
+kind = "choice"
+answer = 2
