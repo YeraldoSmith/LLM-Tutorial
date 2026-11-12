@@ -1,0 +1,50 @@
+[[exercise]]
+id = "gpt2-params"
+kind = "code"
+starter = '''
+n_layer, d, vocab, ctx = map(int, input().split())
+'''
+solution = '''
+n_layer, d, vocab, ctx = map(int, input().split())
+print(vocab * d + ctx * d + n_layer * (12 * d * d + 13 * d) + 2 * d)
+'''
+tests = [
+  { input = "12 768 50257 1024\n", output = "124439808\n" },
+  { input = "24 1024 50257 1024\n", output = "354823168\n" },
+  { input = "2 64 65 256\n", output = "120640\n" },
+  { input = "6 384 65 256\n", output = "10770816\n" },
+]
+
+[[exercise]]
+id = "llama-layer"
+kind = "code"
+starter = '''
+d, n_heads, n_kv_heads, ffn_hidden = map(int, input().split())
+'''
+solution = '''
+d, n_heads, n_kv_heads, ffn_hidden = map(int, input().split())
+head_dim = d // n_heads
+attn = 2 * d * d + 2 * d * n_kv_heads * head_dim
+print(attn + 3 * d * ffn_hidden + 2 * d)
+'''
+tests = [
+  { input = "4096 32 8 14336\n", output = "218112000\n" },
+  { input = "8192 64 8 28672\n", output = "855654400\n" },
+  { input = "2048 16 16 5632\n", output = "51384320\n" },
+  { input = "512 8 2 1536\n", output = "3015680\n" },
+]
+
+[[exercise]]
+id = "residual-role"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "which-family"
+kind = "choice"
+answer = 2
+
+[[exercise]]
+id = "moe-why"
+kind = "choice"
+answer = 1
