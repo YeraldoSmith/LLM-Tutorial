@@ -1,0 +1,45 @@
+[[exercise]]
+id = "top-words"
+kind = "code"
+starter = ""
+solution = '''
+words = input().split()
+counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1
+for w, c in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:3]:
+    print(w, c)
+'''
+tests = [
+  { input = "to be or not to be that is the question to be\n", output = "be 3\nto 3\nis 1\n" },
+  { input = "a b c a b a\n", output = "a 3\nb 2\nc 1\n" },
+  { input = "z y x\n", output = "x 1\ny 1\nz 1\n" },
+]
+
+[[exercise]]
+id = "vocab"
+kind = "code"
+starter = ""
+solution = '''
+text = input()
+chars = sorted(set(text))
+stoi = {ch: i for i, ch in enumerate(chars)}
+print(" ".join(str(stoi[ch]) for ch in text))
+'''
+tests = [
+  { input = "hello\n", output = "1 0 2 2 3\n" },
+  { input = "banana\n", output = "1 0 2 0 2 0\n" },
+  { input = "abc\n", output = "0 1 2\n" },
+]
+
+[[exercise]]
+id = "grid-trap"
+kind = "output"
+answer = '''
+[[9, 0], [9, 0]]
+'''
+
+[[exercise]]
+id = "seed"
+kind = "choice"
+answer = 1

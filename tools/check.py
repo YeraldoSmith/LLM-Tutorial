@@ -99,7 +99,9 @@ def main() -> int:
                         if block.runnable:
                             m = re.search(r'input="([^"]*)"', block.info)
                             stdin = m.group(1).encode().decode("unicode_escape") + "\n" if m else None
-                            jobs.append((f"{where}/{loc}.md block {k}", block.lang, block.code, stdin, "exact", []))
+                            req = re.search(r'requires=([\w,.-]+)', block.info)
+                            jobs.append((f"{where}/{loc}.md block {k}", block.lang, block.code, stdin, "exact",
+                                         req.group(1).split(",") if req else []))
             base = ids_by_locale.get("zh-CN", [])
             for loc, ids in ids_by_locale.items():
                 if ids != base:

@@ -1,0 +1,62 @@
+[[exercise]]
+id = "dot"
+kind = "code"
+starter = ""
+solution = '''
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+print(sum(x * y for x, y in zip(a, b)))
+'''
+tests = [
+  { input = "1 2 3\n4 5 6\n", output = "32\n" },
+  { input = "1 0\n0 1\n", output = "0\n" },
+  { input = "-2 3 1 4\n5 0 -1 2\n", output = "-3\n" },
+]
+
+[[exercise]]
+id = "cosine"
+kind = "code"
+starter = ""
+solution = '''
+import math
+a = list(map(float, input().split()))
+b = list(map(float, input().split()))
+dot = sum(x * y for x, y in zip(a, b))
+na = math.sqrt(sum(x * x for x in a))
+nb = math.sqrt(sum(x * x for x in b))
+print(f"{dot / (na * nb):.4f}")
+'''
+tests = [
+  { input = "1 0\n1 1\n", output = "0.7071\n" },
+  { input = "1 2 3\n2 4 6\n", output = "1.0000\n" },
+  { input = "1 0\n-1 0\n", output = "-1.0000\n" },
+  { input = "0.1 0.9 0.8\n0.1 0.9 -0.8\n", output = "0.1233\n" },
+]
+
+[[exercise]]
+id = "matmul"
+kind = "code"
+starter = ""
+solution = '''
+m, n, p = map(int, input().split())
+A = [list(map(int, input().split())) for _ in range(m)]
+B = [list(map(int, input().split())) for _ in range(n)]
+for i in range(m):
+    row = [sum(A[i][k] * B[k][j] for k in range(n)) for j in range(p)]
+    print(" ".join(map(str, row)))
+'''
+tests = [
+  { input = "2 3 2\n1 2 3\n4 5 6\n7 8\n9 10\n11 12\n", output = "58 64\n139 154\n" },
+  { input = "1 1 1\n3\n4\n", output = "12\n" },
+  { input = "2 2 2\n1 0\n0 1\n5 6\n7 8\n", output = "5 6\n7 8\n" },
+]
+
+[[exercise]]
+id = "shape"
+kind = "choice"
+answer = 0
+
+[[exercise]]
+id = "dot-sign"
+kind = "choice"
+answer = 1

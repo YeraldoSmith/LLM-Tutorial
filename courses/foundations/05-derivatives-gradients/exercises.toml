@@ -1,0 +1,50 @@
+[[exercise]]
+id = "numeric-derivative"
+kind = "code"
+starter = '''
+def f(x):
+    return x ** 3 - 2 * x
+
+x = float(input())
+'''
+solution = '''
+def f(x):
+    return x ** 3 - 2 * x
+
+x = float(input())
+h = 1e-5
+print(f"{(f(x + h) - f(x - h)) / (2 * h):.4f}")
+'''
+tests = [
+  { input = "2\n", output = "10.0000\n" },
+  { input = "0\n", output = "-2.0000\n" },
+  { input = "-1.5\n", output = "4.7500\n" },
+]
+
+[[exercise]]
+id = "gradient-descent"
+kind = "code"
+starter = ""
+solution = '''
+x0, lr, n = input().split()
+x, lr, n = float(x0), float(lr), int(n)
+for _ in range(n):
+    x = x - lr * 2 * (x - 5)
+print(f"{x:.4f}")
+'''
+tests = [
+  { input = "0 0.1 10\n", output = "4.4631\n" },
+  { input = "10 0.25 4\n", output = "5.3125\n" },
+  { input = "5 0.3 7\n", output = "5.0000\n" },
+  { input = "0 0.5 1\n", output = "5.0000\n" },
+]
+
+[[exercise]]
+id = "lr-too-big"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "chain-rule"
+kind = "choice"
+answer = 3
