@@ -90,6 +90,12 @@ def child_env(extra: dict | None = None) -> dict:
     env.update({"PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1", "PYTHONDONTWRITEBYTECODE": "1",
                 "PYTHONUNBUFFERED": "1", "GOTOOLCHAIN": "local", "NO_COLOR": "1",
                 "CARGO_TERM_COLOR": "never"})
+    # Compiler messages in English (the error explanations match English text); keep the
+    # user's character set so programs can still print UTF-8.
+    if env.get("LC_ALL"):
+        env["LANG"] = env.pop("LC_ALL")
+    env.pop("LANGUAGE", None)
+    env["LC_MESSAGES"] = "C"
     if extra:
         env.update(extra)
     return env
@@ -311,7 +317,9 @@ class Toolchains:
                                                  src.name, unbuf.name, "-o", exe, "-lm"], "compile"))
             steps.append(Step([exe], "run"))
         elif lang == "java":
-            argv = tool.argv + ["-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8", "-Dfile.encoding=UTF-8"]
+            # English compiler messages and the same number formatting (3.14, not 3,14) everywhere.
+            argv = tool.argv + ["-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8", "-Dfile.encoding=UTF-8",
+                                "-Duser.language=en", "-Duser.country=US"]
             major = tool.version[0] if tool.version else 0
             if 21 <= major < 25 and re.search(r"^\s*void\s+main\s*\(", code, re.M) and not re.search(r"\bclass\s+\w+", code):
                 argv += ["--enable-preview", "--source", str(major)]

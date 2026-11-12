@@ -178,6 +178,7 @@
   "err.c-scanf-amp": "This `scanf` argument is **missing `&`**. `scanf` needs to know where to store what it reads, so you pass the variable's **address**: `scanf(\"%{f}\", &variable)`. Without `&` the program often crashes (Segmentation fault). (Reading a string into a char array is the exception: no `&` there.)",
   "err.c-format": "**Format and argument types don't match**: `%{f}` expects `{t}`. Common: `%d` int, `%f` double, `%c` char, `%s` string; `scanf` needs `&` before variables.",
   "err.c-no-return": "The function promises to return a value, but **some path has no `return`**.",
+  "err.c-args": "The call to `{name}` passes **the wrong number of arguments**. Check how the function is defined (how many parameters are in its parentheses) and pass that many values, in order.",
   "err.c-assign-if": "**A condition uses `=` (assignment); you almost certainly meant `==` (comparison).** `if (x = 0)` assigns 0 to `x`, and the condition is always false. 👉 To test equality, write two equals signs: `if (x == 0)`.",
   "err.c-misleading-indent": "**The indentation doesn't match the real structure**: without braces, `{kw}` only controls the **one** statement right after it, so the other indented statements below aren't controlled by it. 👉 Add braces `{{ }}` around the `{kw}` block — ideally always.",
   "err.c-empty-body": "There is an **extra semicolon** `;` after `{kw} (...)`. That semicolon is itself a \"do nothing\" statement, so the block after it is no longer controlled by the condition. 👉 Delete the semicolon after the parentheses.",

@@ -15,7 +15,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("python",), r"SyntaxError: invalid character '(?P<ch>.)'", "fullwidth"),
     (("c", "cpp"), r"stray '\\3\d\d' in program", "fullwidth"),
     (("c", "cpp"), r"\\U0000(?:ff[0-9a-f]{2}|20(?:1[89cd]|26)|300[12])", "fullwidth"),   # newer GCC names the character
-    (("c", "cpp"), r"extended character [“”‘’（），；：。、！？] is not valid", "fullwidth"),
+    (("c", "cpp"), r"extended character [“”‘’'（），；：。、！？] is not valid", "fullwidth"),
     (("c", "cpp"), r'invalid suffix "[，；：。（）、]', "fullwidth"),
     # Cyrillic letters that look like Latin ones (р/p, с/c, о/o, а/a, е/e) typed with a Russian layout
     (("c", "cpp"), r"\\U0000(?P<code>04[0-9a-f]{2})", "cyrillic-ident"),
@@ -67,7 +67,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("python",), r"EOFError: EOF when reading a line", "eof-input"),
     (("python",), r"UnicodeDecodeError", "unicode"),
     # ---------------- C / C++
-    (("c", "cpp"), r"expected ';' before", "c-semicolon"),
+    (("c", "cpp"), r"expected (?:',' or )?';' before", "c-semicolon"),
     (("c", "cpp"), r"error: expected ';'", "c-semicolon"),
     (("c",), r"'(?P<name>\w+)' undeclared", "c-undeclared"),
     (("cpp",), r"'(?P<name>\w+)' was not declared in this scope", "c-undeclared"),
@@ -79,6 +79,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '[\w ]+ \*', but argument \d+ has type '(?:int|double|float|char|long|long int|long long int|unsigned int)'", "c-scanf-amp"),
     (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '(?P<t>[^']+)'", "c-format"),
     (("c", "cpp"), r"control reaches end of non-void function", "c-no-return"),
+    (("c", "cpp"), r"too (?P<which>many|few) arguments to function '(?P<name>\w+)'", "c-args"),
     (("c", "cpp"), r"suggest parentheses around assignment used as truth value", "c-assign-if"),
     (("c", "cpp"), r"this '(?P<kw>if|else|for|while)' clause does not guard", "c-misleading-indent"),
     (("c", "cpp"), r"suggest braces around empty body in an? '(?P<kw>if|else|for|while|do)' statement", "c-empty-body"),
@@ -148,6 +149,8 @@ def explain(lang: str, text: str, exit_code: int | None, timed_out: bool, tr) ->
     must return None when a translation is missing."""
     found: list[str] = []
     seen: set[str] = set()
+    # GCC quotes names with ‘…’ in UTF-8 locales and with '…' otherwise; the patterns use '.
+    text = (text or "").replace("\u2018", "'").replace("\u2019", "'")
     for langs, pattern, key in PATTERNS:
         if langs != "*" and lang not in langs:
             continue
