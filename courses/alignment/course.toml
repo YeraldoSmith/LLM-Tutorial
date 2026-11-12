@@ -1,0 +1,16 @@
+id = "alignment"
+language = "python"
+icon = "🎯"
+level = "advanced"
+
+[title]
+zh-CN = "第五部分 · 后训练与对齐"
+zh-TW = "第五部分 · 後訓練與對齊"
+en = "Part 5 · Post-training and alignment"
+ru = "Часть 5 · Дообучение и выравнивание"
+
+[summary]
+zh-CN = "指令微调与对话模板；LoRA 与 QLoRA；奖励模型与 RLHF；DPO 及其家族；推理模型与可验证奖励强化学习（GRPO）；安全与可解释性。"
+zh-TW = "指令微調與對話模板；LoRA 與 QLoRA；獎勵模型與 RLHF；DPO 及其家族；推理模型與可驗證獎勵強化學習（GRPO）；安全與可解釋性。"
+en = "Instruction tuning and chat templates; LoRA and QLoRA; reward models and RLHF; DPO and friends; reasoning models and RL with verifiable rewards (GRPO); safety and interpretability."
+ru = "Инструктивное дообучение и шаблоны диалога; LoRA и QLoRA; модели вознаграждения и RLHF; DPO и родственные методы; модели-рассуждатели и RL с проверяемыми наградами (GRPO); безопасность и интерпретируемость."

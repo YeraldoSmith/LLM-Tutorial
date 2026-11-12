@@ -1,0 +1,16 @@
+id = "ml"
+language = "python"
+icon = "🧠"
+level = "beginner"
+
+[title]
+zh-CN = "第二部分 · 机器学习与神经网络"
+zh-TW = "第二部分 · 機器學習與神經網路"
+en = "Part 2 · Machine learning and neural networks"
+ru = "Часть 2 · Машинное обучение и нейросети"
+
+[summary]
+zh-CN = "用梯度下降拟合一条直线；从分类到 softmax；神经网络与反向传播；亲手写一个自动求导引擎；PyTorch 入门；让训练稳定的技巧。"
+zh-TW = "用梯度下降擬合一條直線；從分類到 softmax；神經網路與反向傳播；親手寫一個自動求導引擎；PyTorch 入門；讓訓練穩定的技巧。"
+en = "Fit a line with gradient descent; from classification to softmax; neural networks and backpropagation; build an autograd engine by hand; PyTorch basics; tricks that make training work."
+ru = "Подгоняем прямую градиентным спуском; от классификации к softmax; нейросети и обратное распространение; свой движок автодифференцирования; основы PyTorch; приёмы стабильного обучения."

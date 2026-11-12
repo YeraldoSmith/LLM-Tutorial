@@ -1,0 +1,16 @@
+id = "inference"
+language = "python"
+icon = "⚡"
+level = "advanced"
+
+[title]
+zh-CN = "第六部分 · 推理与部署"
+zh-TW = "第六部分 · 推理與部署"
+en = "Part 6 · Inference and deployment"
+ru = "Часть 6 · Инференс и развёртывание"
+
+[summary]
+zh-CN = "生成一个词到底要算什么：预填充、解码与 KV 缓存；量化；vLLM、SGLang、llama.cpp、Ollama；投机解码等加速方法；在自己电脑上运行开源模型。"
+zh-TW = "生成一個詞到底要算什麼：預填充、解碼與 KV 快取；量化；vLLM、SGLang、llama.cpp、Ollama；投機解碼等加速方法；在自己電腦上執行開源模型。"
+en = "What generating one token costs: prefill, decode and the KV cache; quantization; vLLM, SGLang, llama.cpp and Ollama; speculative decoding and other speed-ups; running open models on your own computer."
+ru = "Что стоит генерация одного токена: префилл, декодирование и KV-кэш; квантизация; vLLM, SGLang, llama.cpp и Ollama; спекулятивное декодирование и другие ускорения; открытые модели на своём компьютере."

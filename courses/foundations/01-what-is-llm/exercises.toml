@@ -1,0 +1,41 @@
+[[exercise]]
+id = "core-idea"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "next-word"
+kind = "code"
+starter = '''
+text = "the cat sat on the mat the cat ate the fish and the dog sat on the log"
+words = text.split()
+target = input()
+
+# count the words that follow `target`, then print the most common one
+'''
+solution = '''
+text = "the cat sat on the mat the cat ate the fish and the dog sat on the log"
+words = text.split()
+target = input()
+counts = {}
+for current, nxt in zip(words, words[1:]):
+    if current == target:
+        counts[nxt] = counts.get(nxt, 0) + 1
+print(max(counts, key=counts.get))
+'''
+tests = [
+  { input = "the\n", output = "cat\n" },
+  { input = "sat\n", output = "on\n" },
+  { input = "cat\n", output = "sat\n" },
+  { input = "on\n", output = "the\n" },
+]
+
+[[exercise]]
+id = "hallucination"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "stages"
+kind = "choice"
+answer = 0

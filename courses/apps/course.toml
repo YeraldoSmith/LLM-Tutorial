@@ -1,0 +1,16 @@
+id = "apps"
+language = "python"
+icon = "🛠️"
+level = "intermediate"
+
+[title]
+zh-CN = "第七部分 · 大模型应用开发"
+zh-TW = "第七部分 · 大模型應用開發"
+en = "Part 7 · Building with LLMs"
+ru = "Часть 7 · Приложения на основе LLM"
+
+[summary]
+zh-CN = "调用模型 API 与流式输出；提示词与上下文工程；结构化输出与工具调用；向量检索与 RAG；智能体与 MCP；评测、成本与安全（提示注入）。"
+zh-TW = "呼叫模型 API 與流式輸出；提示詞與上下文工程；結構化輸出與工具呼叫；向量檢索與 RAG；智慧體與 MCP；評測、成本與安全（提示注入）。"
+en = "Calling model APIs and streaming; prompt and context engineering; structured output and tool calling; embeddings, vector search and RAG; agents and MCP; evaluation, cost and security (prompt injection)."
+ru = "Вызов API моделей и потоковый вывод; промпт- и контекст-инжиниринг; структурированный вывод и вызов инструментов; эмбеддинги, векторный поиск и RAG; агенты и MCP; оценка, стоимость и безопасность (инъекции промптов)."

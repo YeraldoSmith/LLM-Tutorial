@@ -1,0 +1,16 @@
+id = "frontier"
+language = "python"
+icon = "🔭"
+level = "advanced"
+
+[title]
+zh-CN = "第八部分 · 前沿与趋势"
+zh-TW = "第八部分 · 前沿與趨勢"
+en = "Part 8 · The frontier"
+ru = "Часть 8 · Передний край"
+
+[summary]
+zh-CN = "2026 年的大模型版图；多模态模型；正在发生的研究方向；如何读论文、跟上进展，以及下一步学什么。"
+zh-TW = "2026 年的大模型版圖；多模態模型；正在發生的研究方向；如何讀論文、跟上進展，以及下一步學什麼。"
+en = "The LLM landscape in 2026; multimodal models; research directions in motion; how to read papers, keep up, and what to learn next."
+ru = "Ландшафт LLM в 2026 году; мультимодальные модели; актуальные направления исследований; как читать статьи, следить за новостями и что изучать дальше."

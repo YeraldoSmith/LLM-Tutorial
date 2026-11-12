@@ -1,0 +1,29 @@
+[[exercise]]
+id = "need-gpu"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "memory"
+kind = "code"
+starter = ""
+solution = '''
+p, b = map(float, input().split())
+print(f"{p * b:.1f}")
+'''
+tests = [
+  { input = "7 2\n", output = "14.0\n" },
+  { input = "70 0.5\n", output = "35.0\n" },
+  { input = "1.5 4\n", output = "6.0\n" },
+  { input = "405 1\n", output = "405.0\n" },
+]
+
+[[exercise]]
+id = "venv"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "int4"
+kind = "choice"
+answer = 1

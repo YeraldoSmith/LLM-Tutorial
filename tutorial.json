@@ -1,0 +1,32 @@
+{
+  "id": "llm-tutorial",
+  "repo": "YeraldoSmith/LLM-Tutorial",
+  "name": {
+    "zh-CN": "LLM Tutorial · 从零到精通大语言模型",
+    "en": "LLM Tutorial · Large Language Models from Zero to Expert",
+    "ru": "LLM Tutorial · Большие языковые модели с нуля до эксперта",
+    "zh-TW": "LLM Tutorial · 從零到精通大語言模型"
+  },
+  "description": {
+    "zh-CN": "零基础的大语言模型教程：从数学与 Python 基础、神经网络、亲手实现 GPT，到预训练、对齐、推理部署、RAG、智能体与前沿进展。每课都有可运行的代码和自动判题的练习。",
+    "en": "A zero-to-expert course on large language models: maths and Python basics, neural networks, building a GPT by hand, pre-training, alignment, inference and deployment, RAG, agents and the latest research — with runnable code and auto-checked exercises in every lesson.",
+    "ru": "Курс по большим языковым моделям с нуля до уровня эксперта: основы математики и Python, нейросети, GPT своими руками, предобучение, выравнивание, инференс и развёртывание, RAG, агенты и передовые исследования — в каждом уроке запускаемый код и задания с автопроверкой.",
+    "zh-TW": "零基礎的大語言模型教程：從數學與 Python 基礎、神經網路、親手實現 GPT，到預訓練、對齊、推理部署、RAG、智慧體與前沿進展。每課都有可執行的程式碼和自動判題的練習。"
+  },
+  "locales": [
+    "zh-CN",
+    "zh-TW",
+    "en",
+    "ru"
+  ],
+  "courses": [
+    "foundations",
+    "ml",
+    "lm",
+    "training",
+    "alignment",
+    "inference",
+    "apps",
+    "frontier"
+  ]
+}

@@ -1,0 +1,16 @@
+id = "training"
+language = "python"
+icon = "🏗️"
+level = "intermediate"
+
+[title]
+zh-CN = "第四部分 · 训练大模型"
+zh-TW = "第四部分 · 訓練大模型"
+en = "Part 4 · Training large models"
+ru = "Часть 4 · Обучение больших моделей"
+
+[summary]
+zh-CN = "预训练数据从哪里来；规模定律与算力估算；分布式训练与混合精度；现代架构（RoPE、GQA、MoE、长上下文）；如何评测一个模型。"
+zh-TW = "預訓練資料從哪裡來；規模定律與算力估算；分散式訓練與混合精度；現代架構（RoPE、GQA、MoE、長上下文）；如何評測一個模型。"
+en = "Where pre-training data comes from; scaling laws and compute budgets; distributed and mixed-precision training; modern architectures (RoPE, GQA, MoE, long context); how models are evaluated."
+ru = "Откуда берутся данные для предобучения; законы масштабирования и оценка вычислений; распределённое обучение и смешанная точность; современные архитектуры (RoPE, GQA, MoE, длинный контекст); как оценивают модели."

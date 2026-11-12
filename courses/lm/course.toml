@@ -1,0 +1,16 @@
+id = "lm"
+language = "python"
+icon = "✍️"
+level = "intermediate"
+
+[title]
+zh-CN = "第三部分 · 从零构建语言模型"
+zh-TW = "第三部分 · 從零構建語言模型"
+en = "Part 3 · Building a language model from scratch"
+ru = "Часть 3 · Языковая модель с нуля"
+
+[summary]
+zh-CN = "语言模型就是「预测下一个词」；分词与 BPE；词向量；注意力机制；Transformer；亲手实现并训练一个小 GPT；解码与采样策略。"
+zh-TW = "語言模型就是「預測下一個詞」；分詞與 BPE；詞向量；注意力機制；Transformer；親手實現並訓練一個小 GPT；解碼與取樣策略。"
+en = "A language model predicts the next token; tokenization and BPE; embeddings; attention; the Transformer; implement and train a tiny GPT yourself; decoding and sampling."
+ru = "Языковая модель предсказывает следующий токен; токенизация и BPE; эмбеддинги; механизм внимания; трансформер; собственный маленький GPT; декодирование и сэмплирование."

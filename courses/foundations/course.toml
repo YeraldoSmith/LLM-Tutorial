@@ -1,0 +1,16 @@
+id = "foundations"
+language = "python"
+icon = "🧮"
+level = "zero"
+
+[title]
+zh-CN = "第一部分 · 预备知识"
+zh-TW = "第一部分 · 預備知識"
+en = "Part 1 · Foundations"
+ru = "Часть 1 · Основы"
+
+[summary]
+zh-CN = "大模型到底是什么；学习环境；AI 需要的 Python；向量与矩阵、导数与梯度、概率与信息量的直觉理解。不需要高等数学基础。"
+zh-TW = "大模型到底是什麼；學習環境；AI 需要的 Python；向量與矩陣、導數與梯度、機率與資訊量的直覺理解。不需要高等數學基礎。"
+en = "What an LLM really is; your learning environment; the Python AI needs; an intuitive feel for vectors and matrices, derivatives and gradients, probability and information. No university maths required."
+ru = "Что такое LLM на самом деле; рабочее окружение; Python, нужный для ИИ; интуитивное понимание векторов и матриц, производных и градиентов, вероятности и информации. Высшая математика не требуется."
