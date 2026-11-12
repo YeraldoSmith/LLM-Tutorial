@@ -14,6 +14,12 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     # ---------------- full-width (Chinese/Japanese) punctuation typed by mistake
     (("python",), r"SyntaxError: invalid character '(?P<ch>.)'", "fullwidth"),
     (("c", "cpp"), r"stray '\\3\d\d' in program", "fullwidth"),
+    (("c", "cpp"), r"\\U0000(?:ff[0-9a-f]{2}|20(?:1[89cd]|26)|300[12])", "fullwidth"),   # newer GCC names the character
+    (("c", "cpp"), r"extended character [“”‘’（），；：。、！？] is not valid", "fullwidth"),
+    (("c", "cpp"), r'invalid suffix "[，；：。（）、]', "fullwidth"),
+    # Cyrillic letters that look like Latin ones (р/p, с/c, о/o, а/a, е/e) typed with a Russian layout
+    (("c", "cpp"), r"\\U0000(?P<code>04[0-9a-f]{2})", "cyrillic-ident"),
+    (("python",), r"NameError: name '(?P<name>[^']*[\u0400-\u04ff][^']*)' is not defined", "cyrillic-ident"),
     (("java",), r"illegal character: '\\u(?:ff|201|300)\w+'", "fullwidth"),
     (("rust",), r"unknown start of token: \\u\{(?:ff|201|300)", "fullwidth"),
     (("go",), r"invalid character U\+(?:FF|201|300)", "fullwidth"),

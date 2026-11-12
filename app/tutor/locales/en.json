@@ -128,6 +128,7 @@
   "tool.unknown-language": "unsupported language",
   "err.fullwidth": "Your code contains a **full-width (Chinese/Japanese) symbol** {ch}. In code, brackets `()`, commas `,`, colons `:`, quotes `\"` and semicolons `;` must be **ASCII (half-width)**.\n👉 Switch your keyboard to English and type the symbol again. Other alphabets are fine inside quotes and comments only.",
   "err.fullwidth-maybe": "There is a character the program does not understand. A common cause is **full-width punctuation** such as `（`, `，`, `“`, `；`. Retype those symbols with an English keyboard layout.",
+  "err.cyrillic-ident": "A name in your code contains a **Cyrillic (Russian) letter**. Russian `р`, `с`, `о`, `а`, `е` look exactly like Latin `p`, `c`, `o`, `a`, `e`, but to the computer they are completely different characters. 👉 Switch to the English keyboard layout and retype the name.",
   "err.py-name": "Python doesn't know the name `{name}`. Possible causes: ① a typo (case matters: `Print` ≠ `print`); ② you used the variable before giving it a value; ③ you meant text but forgot the quotes (`\"{name}\"`).",
   "err.py-indent-expected": "**Indentation is missing.** After a line ending with a colon `:` (`if`, `for`, `while`, `def`…), the next line must be indented (usually 4 spaces).",
   "err.py-indent-unexpected": "This line has **extra indentation**. Python uses indentation to group code; lines that don't belong to a block start at the left edge.",
