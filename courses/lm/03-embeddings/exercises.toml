@@ -1,0 +1,111 @@
+[[exercise]]
+id = "nearest-word"
+kind = "code"
+starter = '''
+import math
+
+n = int(input())
+table = {}
+for _ in range(n):
+    parts = input().split()
+query = input()
+'''
+solution = '''
+import math
+
+def cosine(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    return dot / (math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b)))
+
+n = int(input())
+table = {}
+for _ in range(n):
+    parts = input().split()
+    table[parts[0]] = [float(v) for v in parts[1:]]
+query = input()
+best = max((w for w in table if w != query), key=lambda w: cosine(table[query], table[w]))
+print(best, f"{cosine(table[query], table[best]):.4f}")
+'''
+tests = [
+  { input = "4\ncat 0.9 0.8 0.1\ndog 0.8 0.9 0.2\ncar 0.1 0.2 0.9\nbus 0.2 0.1 0.8\ncat\n", output = "dog 0.9899\n" },
+  { input = "4\ncat 0.9 0.8 0.1\ndog 0.8 0.9 0.2\ncar 0.1 0.2 0.9\nbus 0.2 0.1 0.8\ncar\n", output = "bus 0.9866\n" },
+  { input = "5\napple 1 0\nbanana 0.9 0.1\nparis 0 1\nrome 0.1 0.95\nsky -1 0.2\nrome\n", output = "paris 0.9945\n" },
+  { input = "5\napple 1 0\nbanana 0.9 0.1\nparis 0 1\nrome 0.1 0.95\nsky -1 0.2\nsky\n", output = "paris 0.1961\n" },
+]
+
+[[exercise]]
+id = "analogy"
+kind = "code"
+starter = '''
+import math
+
+E = {
+    "king":     [1.0, 1.0, 0.0, 0.0],
+    "queen":    [1.0, 0.0, 1.0, 0.0],
+    "man":      [0.0, 1.0, 0.0, 0.0],
+    "woman":    [0.0, 0.0, 1.0, 0.0],
+    "prince":   [1.0, 1.0, 0.0, 1.0],
+    "princess": [1.0, 0.0, 1.0, 1.0],
+    "boy":      [0.0, 1.0, 0.0, 1.0],
+    "girl":     [0.0, 0.0, 1.0, 1.0],
+}
+
+a, b, c = input().split()
+'''
+solution = '''
+import math
+
+E = {
+    "king":     [1.0, 1.0, 0.0, 0.0],
+    "queen":    [1.0, 0.0, 1.0, 0.0],
+    "man":      [0.0, 1.0, 0.0, 0.0],
+    "woman":    [0.0, 0.0, 1.0, 0.0],
+    "prince":   [1.0, 1.0, 0.0, 1.0],
+    "princess": [1.0, 0.0, 1.0, 1.0],
+    "boy":      [0.0, 1.0, 0.0, 1.0],
+    "girl":     [0.0, 0.0, 1.0, 1.0],
+}
+
+def cosine(u, v):
+    dot = sum(x * y for x, y in zip(u, v))
+    return dot / (math.sqrt(sum(x * x for x in u)) * math.sqrt(sum(y * y for y in v)) + 1e-9)
+
+a, b, c = input().split()
+target = [vb - va + vc for va, vb, vc in zip(E[a], E[b], E[c])]
+print(max((w for w in E if w not in (a, b, c)), key=lambda w: cosine(target, E[w])))
+'''
+tests = [
+  { input = "man king woman\n", output = "queen\n" },
+  { input = "man boy woman\n", output = "girl\n" },
+  { input = "king prince queen\n", output = "princess\n" },
+  { input = "woman queen man\n", output = "king\n" },
+  { input = "boy prince girl\n", output = "princess\n" },
+  { input = "girl woman boy\n", output = "man\n" },
+]
+
+[[exercise]]
+id = "embedding-params"
+kind = "code"
+starter = '''
+V, d, tied = map(int, input().split())
+'''
+solution = '''
+V, d, tied = map(int, input().split())
+print(V * d if tied else 2 * V * d)
+'''
+tests = [
+  { input = "50257 768 1\n", output = "38597376\n" },
+  { input = "128256 4096 0\n", output = "1050673152\n" },
+  { input = "100 8 0\n", output = "1600\n" },
+  { input = "32000 4096 1\n", output = "131072000\n" },
+]
+
+[[exercise]]
+id = "why-not-onehot"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "why-position"
+kind = "choice"
+answer = 1
