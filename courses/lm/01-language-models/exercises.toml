@@ -1,0 +1,66 @@
+[[exercise]]
+id = "perplexity"
+kind = "code"
+starter = '''
+import math
+
+ps = list(map(float, input().split()))
+'''
+solution = '''
+import math
+
+ps = list(map(float, input().split()))
+total = 1.0
+for p in ps:
+    total *= p
+nll = -sum(math.log(p) for p in ps) / len(ps)
+print(f"{total:.6f} {nll:.4f} {math.exp(nll):.4f}")
+'''
+tests = [
+  { input = "0.5 0.25 0.5\n", output = "0.062500 0.9242 2.5198\n" },
+  { input = "0.1\n", output = "0.100000 2.3026 10.0000\n" },
+  { input = "0.9 0.8 0.7 0.6\n", output = "0.302400 0.2990 1.3485\n" },
+  { input = "0.25 0.25 0.25 0.25\n", output = "0.003906 1.3863 4.0000\n" },
+]
+
+[[exercise]]
+id = "bigram-next"
+kind = "code"
+starter = '''
+words = input().split()
+c = input()
+'''
+solution = '''
+words = input().split()
+c = input()
+counts = {}
+for w in words:
+    seq = ["."] + list(w) + ["."]
+    for a, b in zip(seq, seq[1:]):
+        if a == c:
+            counts[b] = counts.get(b, 0) + 1
+print(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[0][0])
+'''
+tests = [
+  { input = "emma ella eva\ne\n", output = "l\n" },
+  { input = "anna ava\na\n", output = ".\n" },
+  { input = "bob bill ben\nb\n", output = ".\n" },
+  { input = "emma ella eva\n.\n", output = "e\n" },
+  { input = "hello hallo\nl\n", output = "l\n" },
+  { input = "noah nolan nora\no\n", output = "a\n" },
+]
+
+[[exercise]]
+id = "why-weird"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "zero-prob"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "uniform-ppl"
+kind = "choice"
+answer = 2
