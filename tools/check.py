@@ -106,8 +106,10 @@ def main() -> int:
                             m = re.search(r'input="([^"]*)"', block.info)
                             stdin = m.group(1).encode().decode("unicode_escape") + "\n" if m else None
                             req = re.search(r'requires=([\w,.-]+)', block.info)
+                            limit = re.search(r'timeout=(\d+)', block.info)    # long demos (e.g. training a model)
                             jobs.append((f"{where}/{loc}.md block {k}", block.lang, block.code, stdin, "exact",
-                                         req.group(1).split(",") if req else []))
+                                         req.group(1).split(",") if req else [],
+                                         int(limit.group(1)) if limit else 20))
             base = ids_by_locale.get("zh-CN", [])
             for loc, ids in ids_by_locale.items():
                 if ids != base:
@@ -124,7 +126,8 @@ def main() -> int:
                         problems.append(f"{where}: choice '{ex_id}' option counts differ {counts}")
 
     def run_job(job):
-        name, lang, code, tests, match, requires = job
+        name, lang, code, tests, match, requires, *extra = job
+        example_timeout = extra[0] if extra else 20
         tool = chains.get(lang)
         if not tool.ok:
             return name, None, f"skipped ({lang} not installed)"
@@ -133,7 +136,8 @@ def main() -> int:
                 return name, None, f"skipped (python package {pkg} missing)"
         if tests is None or isinstance(tests, str):  # example block: must run without crashing
             stdin = tests if isinstance(tests, str) else "3\n4\n5\n" * 4
-            report = runners.run_tests(chains, lang, code, [{"input": stdin, "output": ""}], "contains", timeout=20)
+            report = runners.run_tests(chains, lang, code, [{"input": stdin, "output": ""}], "contains",
+                                       timeout=example_timeout)
             r = report.results[0] if report.results else None
             if report.compile_failed:
                 return name, False, "compile error:\n" + report.compile_output[-1500:]

@@ -1,0 +1,65 @@
+[[exercise]]
+id = "shift-pairs"
+kind = "code"
+starter = '''
+s = input()
+'''
+solution = '''
+s = input()
+for a, b in zip(s, s[1:]):
+    print(a, b)
+'''
+tests = [
+  { input = "hello\n", output = "h e\ne l\nl l\nl o\n" },
+  { input = "ab\n", output = "a b\n" },
+  { input = "37+48=580\n", output = "3 7\n7 +\n+ 4\n4 8\n8 =\n= 5\n5 8\n8 0\n" },
+  { input = "你好吗\n", output = "你 好\n好 吗\n" },
+]
+
+[[exercise]]
+id = "format-problem"
+kind = "code"
+starter = '''
+a, b = map(int, input().split())
+'''
+solution = '''
+a, b = map(int, input().split())
+print(f"{a:02d}+{b:02d}={str(a + b).zfill(3)[::-1]}")
+'''
+tests = [
+  { input = "37 48\n", output = "37+48=580\n" },
+  { input = "4 21\n", output = "04+21=520\n" },
+  { input = "99 99\n", output = "99+99=891\n" },
+  { input = "0 0\n", output = "00+00=000\n" },
+  { input = "50 50\n", output = "50+50=001\n" },
+]
+
+[[exercise]]
+id = "read-answer"
+kind = "code"
+starter = '''
+line = input()
+'''
+solution = '''
+line = input()
+question, ans = line.split("=")
+a, b = question.split("+")
+print(f"{int(a)}+{int(b)}={int(ans[::-1])}")
+'''
+tests = [
+  { input = "37+48=580\n", output = "37+48=85\n" },
+  { input = "04+21=520\n", output = "4+21=25\n" },
+  { input = "99+99=891\n", output = "99+99=198\n" },
+  { input = "00+00=000\n", output = "0+0=0\n" },
+  { input = "50+50=001\n", output = "50+50=100\n" },
+]
+
+[[exercise]]
+id = "how-many-signals"
+kind = "choice"
+answer = 2
+
+[[exercise]]
+id = "why-holdout"
+kind = "choice"
+answer = 1

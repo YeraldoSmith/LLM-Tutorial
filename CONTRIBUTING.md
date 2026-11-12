@@ -18,7 +18,7 @@ courses/lm/02-tokenization/
 ## 课文写作规范
 
 1. **从零讲起**：第一次出现的概念都要解释；多用类比和图（用 ```text 代码块画字符图，各平台都能显示）。
-2. **每段代码都要能运行**：可运行的代码块写成 ```python、```c 等；只是片段、故意写错的例子加 `norun`：```python norun。`tools/check.py --examples` 会运行所有可运行的代码块。
+2. **每段代码都要能运行**：可运行的代码块写成 ```python、```c 等；只是片段、故意写错的例子加 `norun`：```python norun。`tools/check.py --examples` 会运行所有可运行的代码块。其他标注：`input="3\n4"`（运行时的输入）、`requires=numpy`（需要第三方包，没装时检查会跳过，网页版会提示）、`timeout=120`（运行较久的例子，单位秒，默认 20）。
 3. **常见错误**一节：贴出真实的报错信息，并解释它。
 4. 提示框使用 GitHub 语法：`> [!TIP]`、`> [!NOTE]`、`> [!WARNING]`、`> [!IMPORTANT]`、`> [!CAUTION]`。
 5. 公式用 ```formula 代码块，内容写成普通 Unicode 文字（如 `softmax(xᵢ) = e^xᵢ / Σⱼ e^xⱼ`）。
@@ -111,7 +111,7 @@ python tools/check.py --examples # 检查结构，运行全部参考答案和例
 Each lesson is a folder `courses/<course>/<NN-name>/` with `zh-CN.md` (source), `en.md`, `ru.md`, an auto-generated `zh-TW.md` and a shared `exercises.toml`.
 
 - Start every concept from zero; draw diagrams in ```text blocks.
-- Every runnable code block must run (`tools/check.py --examples` runs them); mark fragments and deliberately broken code with `norun`.
+- Every runnable code block must run (`tools/check.py --examples` runs them); mark fragments and deliberately broken code with `norun`. Other fence options: `input="3\n4"` (stdin), `requires=numpy` (third-party package; skipped when missing, the website shows a note), `timeout=120` (seconds, for slow demos; default 20).
 - Use GitHub alerts (`> [!TIP]` …) and ```formula blocks with plain Unicode maths.
 - Exercises: a `<!-- exercise: id -->` marker, a `###` title, the task text, `<details>` hints, and an optional `<details>` whose summary contains "Answer"/"Explanation" for the explanation. Choice options are the last bullet list. Tests and solutions go in `exercises.toml` (see the examples above); use per-language tables when expected output contains words.
 - Before committing: `python tools/zh_tw.py && python tools/check.py --examples`.
