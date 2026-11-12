@@ -1,0 +1,89 @@
+[[exercise]]
+id = "temperature"
+kind = "code"
+starter = '''
+import math
+
+logits = list(map(float, input().split()))
+T = float(input())
+'''
+solution = '''
+import math
+
+logits = list(map(float, input().split()))
+T = float(input())
+z = [v / T for v in logits]
+m = max(z)
+e = [math.exp(v - m) for v in z]
+print(" ".join(f"{v / sum(e):.4f}" for v in e))
+'''
+tests = [
+  { input = "2 1 0\n0.5\n", output = "0.8668 0.1173 0.0159\n" },
+  { input = "2 1 0\n1\n", output = "0.6652 0.2447 0.0900\n" },
+  { input = "2 1 0\n2\n", output = "0.5065 0.3072 0.1863\n" },
+  { input = "1 1 1 1\n0.7\n", output = "0.2500 0.2500 0.2500 0.2500\n" },
+  { input = "3 0 -3\n1.5\n", output = "0.8668 0.1173 0.0159\n" },
+]
+
+[[exercise]]
+id = "top-k"
+kind = "code"
+starter = '''
+import math
+
+logits = list(map(float, input().split()))
+k = int(input())
+'''
+solution = '''
+import math
+
+logits = list(map(float, input().split()))
+k = int(input())
+m = max(logits)
+e = [math.exp(v - m) for v in logits]
+p = [v / sum(e) for v in e]
+keep = sorted(range(len(p)), key=lambda i: -p[i])[:k]
+total = sum(p[i] for i in keep)
+print(" ".join(f"{(p[i] / total if i in keep else 0.0):.4f}" for i in range(len(p))))
+'''
+tests = [
+  { input = "2 1 0 -1\n2\n", output = "0.7311 0.2689 0.0000 0.0000\n" },
+  { input = "3 0 1 2\n1\n", output = "1.0000 0.0000 0.0000 0.0000\n" },
+  { input = "1 2 3\n3\n", output = "0.0900 0.2447 0.6652\n" },
+  { input = "0.5 2.5 1.5 0\n2\n", output = "0.0000 0.7311 0.2689 0.0000\n" },
+]
+
+[[exercise]]
+id = "top-p"
+kind = "code"
+starter = '''
+probs = list(map(float, input().split()))
+p = float(input())
+'''
+solution = '''
+probs = list(map(float, input().split()))
+p = float(input())
+keep, cum = [], 0.0
+for i in sorted(range(len(probs)), key=lambda i: -probs[i]):
+    keep.append(i)
+    cum += probs[i]
+    if cum >= p:
+        break
+print(" ".join(map(str, keep)))
+'''
+tests = [
+  { input = "0.5 0.3 0.15 0.05\n0.75\n", output = "0 1\n" },
+  { input = "0.1 0.6 0.3\n0.5\n", output = "1\n" },
+  { input = "0.25 0.25 0.25 0.25\n0.9\n", output = "0 1 2 3\n" },
+  { input = "0.05 0.05 0.9\n0.92\n", output = "2 0\n" },
+]
+
+[[exercise]]
+id = "greedy-repeat"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "low-temp"
+kind = "choice"
+answer = 1
