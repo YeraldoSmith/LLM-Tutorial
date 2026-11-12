@@ -19,6 +19,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("go",), r"invalid character U\+(?:FF|201|300)", "fullwidth"),
     (("javascript", "typescript"), r"SyntaxError: Invalid or unexpected token", "fullwidth-maybe"),
     # ---------------- Python
+    (("python",), r"TypeError: '(?P<t>NoneType)' object is not (?:subscriptable|iterable)", "py-none"),
     (("python",), r"NameError: name '(?P<name>[^']+)' is not defined", "py-name"),
     (("python",), r"IndentationError: expected an indented block", "py-indent-expected"),
     (("python",), r"IndentationError: unexpected indent", "py-indent-unexpected"),
@@ -40,6 +41,8 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("python",), r"ZeroDivisionError", "zero-division"),
     (("python",), r"IndexError: (?:list|string|tuple) index out of range", "py-index"),
     (("python",), r"KeyError: (?P<k>.+)", "py-key"),
+    (("python",), r"TypeError: unhashable type: '(?P<t>\w+)'", "py-unhashable"),
+    (("python",), r"RuntimeError: (?:dictionary|set) changed size during iteration", "py-changed-size"),
     (("python",), r"AttributeError: '(?P<t>\w+)' object has no attribute '(?P<a>\w+)'", "py-attr"),
     # ---------------- PyTorch (LLM tutorial)
     (("python",), r"mat1 and mat2 shapes cannot be multiplied \((?P<a>\d+x\d+) and (?P<b>\d+x\d+)\)", "torch-shape"),
