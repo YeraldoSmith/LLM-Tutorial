@@ -69,6 +69,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     # ---------------- C / C++
     (("c", "cpp"), r"expected (?:',' or )?';' before", "c-semicolon"),
     (("c", "cpp"), r"error: expected ';'", "c-semicolon"),
+    (("c", "cpp"), r"implicit declaration of function 'gets'|'gets' was not declared", "c-gets"),
     (("c",), r"'(?P<name>\w+)' undeclared", "c-undeclared"),
     (("cpp",), r"'(?P<name>\w+)' was not declared in this scope", "c-undeclared"),
     (("c", "cpp"), r"use of undeclared identifier '(?P<name>\w+)'", "c-undeclared"),
@@ -98,6 +99,11 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c",), r"excess elements in array initializer", "c-excess-init"),
     (("cpp",), r"too many initializers for '\w+ \[\d+\]'", "c-excess-init"),
     (("c", "cpp"), r"array subscript (?P<idx>-?\d+) is (?:above|below) array bounds", "c-array-bounds"),
+    (("cpp",), r"incompatible types in assignment of '[^']*' to '\w+ \[\d+\]'", "c-array-assign"),
+    (("c", "cpp"), r"comparison with string literal results in unspecified behavior|comparison between two arrays", "c-str-eq"),
+    (("c", "cpp"), r"initializer-string for (?:array of 'char'|'char ?\[\d+\]') is too long", "c-str-too-long"),
+    (("c", "cpp"), r"writing (?P<n>\d+) bytes? into a region of size (?P<size>\d+)", "c-str-overflow"),
+    (("c", "cpp"), r"(?:'snprintf'|directive) output (?:may be )?truncated", "c-truncation"),
     (("c", "cpp"), r"suggest parentheses around assignment used as truth value", "c-assign-if"),
     (("c", "cpp"), r"this '(?P<kw>if|else|for|while)' clause does not guard", "c-misleading-indent"),
     (("c", "cpp"), r"suggest braces around empty body in an? '(?P<kw>if|else|for|while|do)' statement", "c-empty-body"),
@@ -165,24 +171,37 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
 def explain(lang: str, text: str, exit_code: int | None, timed_out: bool, tr) -> list[str]:
     """Return localized explanations (each a short Markdown string). ``tr(key, **kw)``
     must return None when a translation is missing."""
-    found: list[str] = []
     seen: set[str] = set()
+    spans: list[tuple[int, int]] = []
+    hits: list[tuple[bool, int, str]] = []          # (is a warning, order, message)
     # GCC quotes names with ‘…’ in UTF-8 locales and with '…' otherwise; the patterns use '.
     text = (text or "").replace("\u2018", "'").replace("\u2019", "'")
     for langs, pattern, key in PATTERNS:
         if langs != "*" and lang not in langs:
             continue
-        m = re.search(pattern, text or "", re.S if key == "java-io" else 0)
-        if m and key not in seen:
-            seen.add(key)
-            values = {k: v for k, v in m.groupdict().items() if v is not None}
-            if "name2" in values and "name" not in values:
-                values["name"] = values["name2"]
-            msg = tr("err." + key, **values)
-            if msg:
-                found.append(msg)
-        if len(found) >= 2:
-            break
+        if key in seen:
+            continue
+        m = None
+        for cand in re.finditer(pattern, text, re.S if key == "java-io" else 0):
+            # one place in the output gets one explanation (e.g. "implicit declaration of 'gets'")
+            if not any(cand.start() < e and s < cand.end() for s, e in spans):
+                m = cand
+                break
+        if not m:
+            continue
+        seen.add(key)
+        spans.append(m.span())
+        values = {k: v for k, v in m.groupdict().items() if v is not None}
+        if "name2" in values and "name" not in values:
+            values["name"] = values["name2"]
+        msg = tr("err." + key, **values)
+        if msg:
+            start = text.rfind("\n", 0, m.start()) + 1
+            end = text.find("\n", m.end())
+            line = text[start:end if end >= 0 else len(text)]
+            hits.append(("warning:" in line, len(hits), msg))
+    # errors that stop the build come before warnings
+    found = [msg for _, _, msg in sorted(hits)[:2]]
     if timed_out:
         found.append(tr("err.timeout") or "")
     elif exit_code is not None and not found:
