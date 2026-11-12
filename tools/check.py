@@ -104,7 +104,7 @@ def main() -> int:
                     for k, block in enumerate(render(body).code_blocks):
                         if block.runnable:
                             m = re.search(r'input="([^"]*)"', block.info)
-                            stdin = m.group(1).encode().decode("unicode_escape") + "\n" if m else None
+                            stdin = m.group(1).replace("\\n", "\n").replace("\\t", "\t") + "\n" if m else None   # keeps non-ASCII text intact
                             req = re.search(r'requires=([\w,.-]+)', block.info)
                             limit = re.search(r'timeout=(\d+)', block.info)    # long demos (e.g. training a model)
                             jobs.append((f"{where}/{loc}.md block {k}", block.lang, block.code, stdin, "exact",
