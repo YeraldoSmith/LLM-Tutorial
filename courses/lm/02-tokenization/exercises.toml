@@ -1,0 +1,68 @@
+[[exercise]]
+id = "utf8-bytes"
+kind = "code"
+starter = '''
+s = input()
+'''
+solution = '''
+s = input()
+print(len(s), len(s.encode("utf-8")))
+'''
+tests = [
+  { input = "Hi 你好\n", output = "5 9\n" },
+  { input = "hello\n", output = "5 5\n" },
+  { input = "你好\n", output = "2 6\n" },
+  { input = "Привет\n", output = "6 12\n" },
+  { input = "😀\n", output = "1 4\n" },
+  { input = "Ёлка 2025\n", output = "9 13\n" },
+]
+
+[[exercise]]
+id = "bpe-step"
+kind = "code"
+starter = '''
+seq = list(input())
+'''
+solution = '''
+seq = list(input())
+counts = {}
+for pair in zip(seq, seq[1:]):
+    counts[pair] = counts.get(pair, 0) + 1
+best = max(counts, key=counts.get)
+out, i = [], 0
+while i < len(seq):
+    if i < len(seq) - 1 and (seq[i], seq[i + 1]) == best:
+        out.append(seq[i] + seq[i + 1])
+        i += 2
+    else:
+        out.append(seq[i])
+        i += 1
+print(best[0] + best[1])
+print(" ".join(out))
+'''
+tests = [
+  { input = "aaabdaaabac\n", output = "aa\naa a b d aa a b a c\n" },
+  { input = "abab\n", output = "ab\nab ab\n" },
+  { input = "hello\n", output = "he\nhe l l o\n" },
+  { input = "banana\n", output = "an\nb an an a\n" },
+  { input = "mississippi\n", output = "is\nm is s is s i p p i\n" },
+  { input = "zzzz\n", output = "zz\nzz zz\n" },
+]
+
+[[exercise]]
+id = "decode-bytes"
+kind = "output"
+answer = '''
+Hi 你
+6
+'''
+
+[[exercise]]
+id = "strawberry"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "vocab-size"
+kind = "choice"
+answer = 1
