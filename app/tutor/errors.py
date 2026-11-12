@@ -77,6 +77,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp", "asm"), r"undefined reference to `(?P<name>[^']+)'", "c-undefined-ref"),
     (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '(?P<t>[^']+)'", "c-format"),
     (("c", "cpp"), r"control reaches end of non-void function", "c-no-return"),
+    (("c", "cpp"), r"suggest parentheses around assignment used as truth value", "c-assign-if"),
     (("c", "cpp"), r"'(?P<name>\w+)' is used uninitialized|'(?P<name2>\w+)' may be used uninitialized", "c-uninit"),
     (("c", "cpp"), r"expected declaration or statement at end of input|expected '}' at end of input", "c-brace"),
     (("c", "cpp"), r"missing terminating \" character", "c-string"),
