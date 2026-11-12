@@ -174,6 +174,8 @@
   "err.cpp-std-member": "`std::{name}` 找不到：通常是**忘了 `#include` 对应的头文件**（例如 `std::cout` 需要 `#include <iostream>`，`std::string` 需要 `#include <string>`，`std::vector` 需要 `#include <vector>`）。",
   "err.c-implicit": "调用了函数 `{name}`，但编译器不知道它的声明。是不是**忘了 `#include` 头文件**（如 `printf` 需要 `<stdio.h>`）？或者函数名拼错了、函数定义写在了调用的后面？",
   "err.c-undefined-ref": "**链接错误**：找不到 `{name}` 的定义。可能是函数只声明没实现、名字拼错，或者缺少 `main` 函数。",
+  "err.c-scanf-lf": "`scanf` 读 **`double`** 要用 **`%lf`**（小写的 L 和 f），`%f` 是给 `float` 用的。注意 `printf` 输出 `double` 用 `%f` 就可以——两者在这一点上不一样。",
+  "err.c-scanf-amp": "`scanf` 的这个参数**少了 `&`**。`scanf` 需要知道把读到的值存到哪里，所以要传变量的**地址**：`scanf(\"%{f}\", &变量名)`。少了 `&` 程序常常会直接崩溃（Segmentation fault）。（读字符串到字符数组时例外，不用 `&`。）",
   "err.c-format": "`printf`/`scanf` 的**格式符和参数类型不匹配**：`%{f}` 需要的是 `{t}`。常用：`%d` 整数、`%f` 小数（double）、`%c` 字符、`%s` 字符串；`scanf` 读变量要加 `&`。",
   "err.c-no-return": "函数声明了返回值类型，但**有的路径没有 `return`**。确保每种情况下都返回一个值。",
   "err.c-assign-if": "**条件里用了 `=`（赋值），你多半想写 `==`（比较）**。`if (x = 0)` 会把 0 赋给 `x`，而且条件永远为假。👉 比较是否相等要写两个等号：`if (x == 0)`。",

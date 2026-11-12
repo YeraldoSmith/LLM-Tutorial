@@ -174,6 +174,8 @@
   "err.cpp-std-member": "`std::{name}` 找不到：通常是**忘了 `#include` 對應的標頭檔案**（例如 `std::cout` 需要 `#include <iostream>`，`std::string` 需要 `#include <string>`，`std::vector` 需要 `#include <vector>`）。",
   "err.c-implicit": "呼叫了函式 `{name}`，但編譯器不知道它的宣告。是不是**忘了 `#include` 標頭檔案**（如 `printf` 需要 `<stdio.h>`）？或者函式名拼錯了、函式定義寫在了呼叫的後面？",
   "err.c-undefined-ref": "**連結錯誤**：找不到 `{name}` 的定義。可能是函式只宣告沒實現、名字拼錯，或者缺少 `main` 函式。",
+  "err.c-scanf-lf": "`scanf` 讀 **`double`** 要用 **`%lf`**（小寫的 L 和 f），`%f` 是給 `float` 用的。注意 `printf` 輸出 `double` 用 `%f` 就可以——兩者在這一點上不一樣。",
+  "err.c-scanf-amp": "`scanf` 的這個引數**少了 `&`**。`scanf` 需要知道把讀到的值存到哪裡，所以要傳變數的**地址**：`scanf(\"%{f}\", &變數名)`。少了 `&` 程式常常會直接崩潰（Segmentation fault）。（讀字串到字元陣列時例外，不用 `&`。）",
   "err.c-format": "`printf`/`scanf` 的**格式符和引數型別不匹配**：`%{f}` 需要的是 `{t}`。常用：`%d` 整數、`%f` 小數（double）、`%c` 字元、`%s` 字串；`scanf` 讀變數要加 `&`。",
   "err.c-no-return": "函式宣告瞭返回值型別，但**有的路徑沒有 `return`**。確保每種情況下都返回一個值。",
   "err.c-assign-if": "**條件裡用了 `=`（賦值），你多半想寫 `==`（比較）**。`if (x = 0)` 會把 0 賦給 `x`，而且條件永遠為假。👉 比較是否相等要寫兩個等號：`if (x == 0)`。",

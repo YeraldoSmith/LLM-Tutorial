@@ -75,6 +75,8 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("cpp",), r"'(?P<name>\w+)' is not a member of 'std'", "cpp-std-member"),
     (("c",), r"implicit declaration of function '(?P<name>\w+)'", "c-implicit"),
     (("c", "cpp", "asm"), r"undefined reference to `(?P<name>[^']+)'", "c-undefined-ref"),
+    (("c", "cpp"), r"format '%f' expects argument of type 'float \*', but argument \d+ has type 'double \*'", "c-scanf-lf"),
+    (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '[\w ]+ \*', but argument \d+ has type '(?:int|double|float|char|long|long int|long long int|unsigned int)'", "c-scanf-amp"),
     (("c", "cpp"), r"format '%(?P<f>\w+)' expects argument of type '(?P<t>[^']+)'", "c-format"),
     (("c", "cpp"), r"control reaches end of non-void function", "c-no-return"),
     (("c", "cpp"), r"suggest parentheses around assignment used as truth value", "c-assign-if"),
