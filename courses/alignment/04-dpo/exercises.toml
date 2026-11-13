@@ -1,0 +1,102 @@
+[[exercise]]
+id = "dpo-loss"
+kind = "code"
+starter = '''
+pi_w, pi_l, ref_w, ref_l, beta = map(float, input().split())
+'''
+solution = '''
+import math
+
+pi_w, pi_l, ref_w, ref_l, beta = map(float, input().split())
+margin = beta * ((pi_w - ref_w) - (pi_l - ref_l))
+loss = -math.log(1 / (1 + math.exp(-margin)))
+print(f"{loss:.4f} {margin:.4f}")
+'''
+tests = [
+  { input = "-38 -40 -42 -40 0.1\n", output = "0.5130 0.4000\n" },
+  { input = "-42 -40 -42 -40 0.1\n", output = "0.6931 0.0000\n" },
+  { input = "-45 -60 -42 -50 0.1\n", output = "0.4032 0.7000\n" },
+  { input = "-50 -30 -45 -35 0.5\n", output = "5.0067 -5.0000\n" },
+  { input = "-12.5 -14 -13 -13 0.2\n", output = "0.5544 0.3000\n" },
+]
+
+[[exercise]]
+id = "dpo-batch"
+kind = "code"
+starter = '''
+first = input().split()
+'''
+solution = '''
+import math
+
+first = input().split()
+n, beta = int(first[0]), float(first[1])
+total, positive = 0.0, 0
+for _ in range(n):
+    pi_w, pi_l, ref_w, ref_l = map(float, input().split())
+    margin = beta * ((pi_w - ref_w) - (pi_l - ref_l))
+    total += -math.log(1 / (1 + math.exp(-margin)))
+    positive += margin > 0
+print(f"{total / n:.4f} {positive / n:.1%}")
+'''
+tests = [
+  { input = "3 0.1\n-38 -40 -42 -40\n-42 -40 -42 -40\n-45 -60 -42 -50\n", output = "0.5364 66.7%\n" },
+  { input = "1 0.5\n-10 -10 -12 -8\n", output = "0.1269 100.0%\n" },
+  { input = "6 0.1\n-52 -32 -25 -41\n-30 -29 -36 -46\n-32 -39 -24 -36\n-47 -48 -57 -29\n-25 -32 -22 -55\n-26 -39 -27 -42\n", output = "1.5853 16.7%\n" },
+  { input = "2 0.05\n-30 -35 -30 -35\n-20 -40 -25 -30\n", output = "0.5400 50.0%\n" },
+]
+
+[[exercise]]
+id = "simpo-loss"
+kind = "code"
+starter = '''
+lw, nw, ll, nl, beta, gamma = map(float, input().split())
+'''
+solution = '''
+import math
+
+lw, nw, ll, nl, beta, gamma = map(float, input().split())
+margin = beta * (lw / nw - ll / nl) - gamma
+print(f"{-math.log(1 / (1 + math.exp(-margin))):.4f}")
+'''
+tests = [
+  { input = "-120 100 -30 20 2 1\n", output = "0.9130\n" },
+  { input = "-50 50 -100 50 2.5 0.5\n", output = "0.1269\n" },
+  { input = "-10 10 -10 10 2 0\n", output = "0.6931\n" },
+  { input = "-80 40 -90 30 2 1.4\n", output = "0.4375\n" },
+]
+
+[[exercise]]
+id = "implicit-reward"
+kind = "code"
+starter = '''
+beta = float(input())
+'''
+solution = '''
+import sys
+
+beta = float(input())
+items = []
+for line in sys.stdin:
+    parts = line.split()
+    if len(parts) != 3:
+        continue
+    items.append((parts[0], beta * (float(parts[1]) - float(parts[2]))))
+for name, reward in sorted(items, key=lambda t: (-t[1], t[0])):
+    print(f"{name} {reward:.3f}")
+'''
+tests = [
+  { input = "0.5\na -10 -12\nb -8 -8\nc -20 -15\n", output = "a 1.000\nb 0.000\nc -2.500\n" },
+  { input = "0.1\nx -5 -5\nw -6 -6\nlong -100 -130\n", output = "long 3.000\nw 0.000\nx 0.000\n" },
+  { input = "1\nonly -3.5 -4\n", output = "only 0.500\n" },
+]
+
+[[exercise]]
+id = "dpo-needs"
+kind = "choice"
+answer = 2
+
+[[exercise]]
+id = "dpo-beta"
+kind = "choice"
+answer = 1
