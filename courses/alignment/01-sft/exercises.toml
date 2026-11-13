@@ -1,0 +1,76 @@
+[[exercise]]
+id = "chatml"
+kind = "code"
+starter = '''
+n = int(input())
+'''
+solution = '''
+n = int(input())
+for _ in range(n):
+    role, content = input().split(": ", 1)
+    print(f"<|im_start|>{role}\n{content}<|im_end|>")
+print("<|im_start|>assistant")
+'''
+tests = [
+  { input = "2\nsystem: Be brief.\nuser: Hi!\n", output = "<|im_start|>system\nBe brief.<|im_end|>\n<|im_start|>user\nHi!<|im_end|>\n<|im_start|>assistant\n" },
+  { input = "1\nuser: What is 2+2?\n", output = "<|im_start|>user\nWhat is 2+2?<|im_end|>\n<|im_start|>assistant\n" },
+  { input = "4\nsystem: You are a pirate.\nuser: Hello\nassistant: Arr!\nuser: Where is the gold?\n", output = "<|im_start|>system\nYou are a pirate.<|im_end|>\n<|im_start|>user\nHello<|im_end|>\n<|im_start|>assistant\nArr!<|im_end|>\n<|im_start|>user\nWhere is the gold?<|im_end|>\n<|im_start|>assistant\n" },
+  { input = "1\nuser: Note: colons: are fine\n", output = "<|im_start|>user\nNote: colons: are fine<|im_end|>\n<|im_start|>assistant\n" },
+]
+
+[[exercise]]
+id = "masked-loss"
+kind = "code"
+starter = '''
+roles = input().split()
+losses = list(map(float, input().split()))
+'''
+solution = '''
+roles = input().split()
+losses = list(map(float, input().split()))
+picked = [x for r, x in zip(roles, losses) if r == "A"]
+print(f"{sum(picked) / len(picked):.4f}")
+'''
+tests = [
+  { input = "U U U A A A A\n5.1 4.8 6.0 1.2 0.8 2.0 0.4\n", output = "1.1000\n" },
+  { input = "A\n0.7\n", output = "0.7000\n" },
+  { input = "U A U A\n9 1 9 3\n", output = "2.0000\n" },
+  { input = "A A U U A\n0.5 0.25 8 8 0.75\n", output = "0.5000\n" },
+]
+
+[[exercise]]
+id = "pack-sft"
+kind = "code"
+starter = '''
+L = int(input())
+lengths = list(map(int, input().split()))
+'''
+solution = '''
+L = int(input())
+lengths = list(map(int, input().split()))
+packs, used = 0, L
+for n in lengths:
+    if used + n > L:
+        packs += 1
+        used = n
+    else:
+        used += n
+print(f"{packs} {sum(lengths) / (packs * L):.1%}")
+'''
+tests = [
+  { input = "10\n4 5 3 8 2 6\n", output = "4 70.0%\n" },
+  { input = "8\n8 8 8\n", output = "3 100.0%\n" },
+  { input = "100\n10 20 30 40\n", output = "1 100.0%\n" },
+  { input = "2048\n1500 600 400 1000 1048 2048 5\n", output = "5 64.5%\n" },
+  { input = "5\n1\n", output = "1 20.0%\n" },
+]
+
+[[exercise]]
+id = "why-mask"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "lima"
+kind = "choice"
+answer = 1
