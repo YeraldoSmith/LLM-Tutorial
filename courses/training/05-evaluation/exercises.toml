@@ -1,0 +1,96 @@
+[[exercise]]
+id = "perplexity"
+kind = "code"
+starter = '''
+probs = list(map(float, input().split()))
+'''
+solution = '''
+import math
+
+probs = list(map(float, input().split()))
+loss = -sum(math.log(p) for p in probs) / len(probs)
+print(f"{loss:.3f} {math.exp(loss):.3f}")
+'''
+tests = [
+  { input = "0.25 0.6 0.05 0.9 0.4\n", output = "1.183 3.264\n" },
+  { input = "0.5 0.5\n", output = "0.693 2.000\n" },
+  { input = "0.99 0.98\n", output = "0.015 1.015\n" },
+  { input = "0.01 0.02 0.03\n", output = "4.008 55.032\n" },
+  { input = "0.9 0.8 0.95 0.7 0.99 0.85\n", output = "0.152 1.164\n" },
+]
+
+[[exercise]]
+id = "pass-at-k"
+kind = "code"
+starter = '''
+n, c, k = map(int, input().split())
+'''
+solution = '''
+from math import comb
+
+n, c, k = map(int, input().split())
+if n - c < k:
+    print(f"{1.0:.4f}")
+else:
+    print(f"{1 - comb(n - c, k) / comb(n, k):.4f}")
+'''
+tests = [
+  { input = "10 3 5\n", output = "0.9167\n" },
+  { input = "10 3 1\n", output = "0.3000\n" },
+  { input = "200 10 10\n", output = "0.4085\n" },
+  { input = "5 0 3\n", output = "0.0000\n" },
+  { input = "20 18 5\n", output = "1.0000\n" },
+  { input = "100 1 50\n", output = "0.5000\n" },
+]
+
+[[exercise]]
+id = "elo"
+kind = "code"
+starter = '''
+ra, rb, score, k = map(float, input().split())
+'''
+solution = '''
+ra, rb, score, k = map(float, input().split())
+expected_a = 1 / (1 + 10 ** ((rb - ra) / 400))
+change = k * (score - expected_a)
+print(f"{ra + change:.1f} {rb - change:.1f}")
+'''
+tests = [
+  { input = "1600 1400 0 32\n", output = "1575.7 1424.3\n" },
+  { input = "1500 1500 1 32\n", output = "1516.0 1484.0\n" },
+  { input = "1500 1500 0.5 32\n", output = "1500.0 1500.0\n" },
+  { input = "1200 1800 1 16\n", output = "1215.5 1784.5\n" },
+  { input = "2000 1000 1 24\n", output = "2000.1 999.9\n" },
+]
+
+[[exercise]]
+id = "accuracy-ci"
+kind = "code"
+starter = '''
+correct, total = map(int, input().split())
+'''
+solution = '''
+import math
+
+correct, total = map(int, input().split())
+p = correct / total
+half = 1.96 * math.sqrt(p * (1 - p) / total)
+print(f"{p:.3f} {p - half:.3f} {p + half:.3f}")
+'''
+tests = [
+  { input = "360 500\n", output = "0.720 0.681 0.759\n" },
+  { input = "375 500\n", output = "0.750 0.712 0.788\n" },
+  { input = "140 200\n", output = "0.700 0.636 0.764\n" },
+  { input = "9 30\n", output = "0.300 0.136 0.464\n" },
+  { input = "4800 10000\n", output = "0.480 0.470 0.490\n" },
+]
+
+[[exercise]]
+id = "small-diff"
+kind = "choice"
+answer = 2
+
+[[exercise]]
+id = "judge-bias"
+kind = "choice"
+answer = 1

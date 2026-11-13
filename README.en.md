@@ -29,7 +29,7 @@ A course on large language models that works **from absolute zero**: it starts w
 
 ## Progress
 
-Parts 1–3 (foundations, machine learning and neural networks, building a language model from scratch — 19 lessons) are complete; by the end you train a small GPT yourself. Parts 4–8 are being written and will arrive lesson by lesson.
+Parts 1–4 (foundations, machine learning and neural networks, building a language model from scratch, training large models — 24 lessons) are complete: you train a small GPT yourself and learn how large models are trained and evaluated. Parts 5–8 are being written and will arrive lesson by lesson.
 
 ## How to learn
 
