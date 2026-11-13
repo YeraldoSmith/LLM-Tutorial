@@ -75,7 +75,9 @@ def main() -> int:
                         problems.append(f"{where}: missing {loc}.md")
                     continue
                 text = p.read_text(encoding="utf-8")
-                if "\t" in text:
+                # tabs only where a format requires them (Makefile recipes)
+                no_make = re.sub(r"```makefile\n.*?```", "", text, flags=re.S)
+                if "\t" in no_make:
                     problems.append(f"{where}/{loc}.md: contains a tab character")
                 title, body, segs = split_lesson(text)
                 if not title:
