@@ -199,6 +199,8 @@
   "err.c-return-local": "函数返回了**局部变量的地址**。函数一结束，局部变量就消失了，这个地址指向的是已经无效的内存（「悬空指针」）。可以直接返回值本身，或者让调用者传进一个指针来存放结果，或者用 `malloc` 分配内存（第 11 课）。",
   "err.c-use-after-free": "指针 `{name}` 指向的内存**已经被 `free` 了**，之后又被使用（use after free）。`free` 之后就不能再通过它读写；习惯上在 `free({name});` 后面紧接着写 `{name} = NULL;`。",
   "err.c-free-nonheap": "`free` 只能释放 **`malloc`、`calloc`、`realloc` 分配的内存**，而且要传入它们返回的那个地址。普通变量和数组的内存是自动管理的，不能 `free`。",
+  "err.c-fopen-mode": "`fopen` 的打开模式是一个**字符串**，要用双引号：`fopen(\"data.txt\", \"r\")`。`'r'`（单引号）只是一个字符，不是字符串。",
+  "err.c-fprintf-file": "`fprintf` 的第一个参数必须是**文件指针**（`FILE *`，比如 `f` 或 `stderr`），格式字符串放在第二个：`fprintf(f, \"n = %d\\n\", n);`。只想输出到屏幕就用 `printf`。",
   "err.c-ptr-int": "**指针和整数混用了**。指针存的是地址，`int` 存的是数。常见原因：忘了写 `&`（`int *p = x;` 应该是 `int *p = &x;`），或者忘了写 `*`（要用指针指向的值时写 `*p`）。",
   "err.c-qsort-cmp": "传给 `qsort` 的比较函数**参数类型不对**。它必须写成 `int 名字(const void *a, const void *b)`，在函数里面再把参数转换成需要的类型，例如 `int x = *(const int *)a;`。",
   "err.c-ptr-type": "**指针的类型不匹配**：比如把 `double` 变量的地址交给了 `int *`。指针的类型要和它指向的变量一致：`int` 变量用 `int *`，`double` 变量用 `double *`。",

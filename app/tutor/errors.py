@@ -108,6 +108,8 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp"), r"function returns address of local variable|address of local variable '\w+' returned", "c-return-local"),
     (("c", "cpp"), r"pointer '(?P<name>\w+)' (?:may be )?used after '(?:free|realloc)'", "c-use-after-free"),
     (("c", "cpp"), r"'free' called on (?:unallocated object '(?P<name>\w+)'|pointer '(?P<name2>\w+)' with nonzero offset)", "c-free-nonheap"),
+    (("c",), r"passing argument 2 of 'fopen' makes pointer from integer", "c-fopen-mode"),
+    (("c",), r"passing argument 1 of 'fprintf' from incompatible pointer type", "c-fprintf-file"),
     (("c",), r"makes (?:pointer from integer|integer from pointer) without a cast", "c-ptr-int"),
     (("c", "cpp"), r"passing argument 4 of 'qsort' from incompatible pointer type", "c-qsort-cmp"),
     (("c",), r"(?:from|to) incompatible pointer type", "c-ptr-type"),
