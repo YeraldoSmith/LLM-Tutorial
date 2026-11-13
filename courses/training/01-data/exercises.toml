@@ -1,0 +1,111 @@
+[[exercise]]
+id = "jaccard"
+kind = "code"
+starter = '''
+a = input()
+b = input()
+'''
+solution = '''
+a = input().lower().split()
+b = input().lower().split()
+sa = {(a[i], a[i + 1]) for i in range(len(a) - 1)}
+sb = {(b[i], b[i + 1]) for i in range(len(b) - 1)}
+print(f"{len(sa & sb) / len(sa | sb):.3f}")
+'''
+tests = [
+  { input = "the cat sat on the mat\nthe cat sat on a mat\n", output = "0.429\n" },
+  { input = "Hello world\nhello WORLD\n", output = "1.000\n" },
+  { input = "a b c d\ne f g h\n", output = "0.000\n" },
+  { input = "to be or not to be\nto be or not to be that is the question\n", output = "0.500\n" },
+  { input = "one two three\nthree two one\n", output = "0.000\n" },
+]
+
+[[exercise]]
+id = "gopher-filter"
+kind = "code"
+starter = '''
+n = int(input())
+'''
+solution = '''
+def keep(doc):
+    words = doc.split()
+    if not 5 <= len(words) <= 1000:
+        return False
+    if not 3 <= sum(len(w) for w in words) / len(words) <= 10:
+        return False
+    if sum(any(c.isalpha() for c in w) for w in words) / len(words) < 0.8:
+        return False
+    if len({w.lower() for w in words}) / len(words) < 0.3:
+        return False
+    return True
+
+
+n = int(input())
+for _ in range(n):
+    print("keep" if keep(input()) else "drop")
+'''
+tests = [
+  { input = "2\nPhotosynthesis turns sunlight water and carbon dioxide into sugar.\nclick here click here click here click here\n", output = "keep\ndrop\n" },
+  { input = "8\nPhotosynthesis turns sunlight water and carbon dioxide into sugar.\nclick here click here click here click here\nHome | About | Login\n$$$ 100% !!! ### 2026 *** >>> <<<\nThe mitochondria is the powerhouse of the cell.\na b c d e f g\nSupercalifragilisticexpialidocious antidisestablishmentarianism pneumonoultramicroscopic floccinaucinihilipilification hippopotomonstrosesquippedaliophobia\nRome was not built in a day, but it was built.\n", output = "keep\ndrop\ndrop\ndrop\nkeep\ndrop\ndrop\nkeep\n" },
+  { input = "3\nThe mitochondria is the powerhouse of the cell.\na b c d e f g\nSupercalifragilisticexpialidocious antidisestablishmentarianism pneumonoultramicroscopic floccinaucinihilipilification hippopotomonstrosesquippedaliophobia\n", output = "keep\ndrop\ndrop\n" },
+]
+
+[[exercise]]
+id = "exact-dedup"
+kind = "code"
+starter = '''
+n = int(input())
+'''
+solution = '''
+n = int(input())
+seen = set()
+kept = []
+for _ in range(n):
+    doc = input()
+    key = " ".join(doc.lower().split())
+    if key not in seen:
+        seen.add(key)
+        kept.append(doc)
+print(len(kept))
+for doc in kept:
+    print(doc)
+'''
+tests = [
+  { input = "3\nHello World\nhello   world\nGoodbye\n", output = "2\nHello World\nGoodbye\n" },
+  { input = "3\na\nb\nc\n", output = "3\na\nb\nc\n" },
+  { input = "5\nSame text\nSAME TEXT\nsame  text\nOther\n same text\n", output = "2\nSame text\nOther\n" },
+  { input = "4\nx\nx\nx\nx\n", output = "1\nx\n" },
+]
+
+[[exercise]]
+id = "mixture-epochs"
+kind = "code"
+starter = '''
+total = float(input())
+'''
+solution = '''
+import sys
+
+total = float(input())
+for line in sys.stdin:
+    parts = line.split()
+    if len(parts) != 3:
+        continue
+    name, size, share = parts[0], float(parts[1]), float(parts[2])
+    print(f"{name} {total * share / size:.2f}")
+'''
+tests = [
+  { input = "1000\nweb 2000 0.8\ncode 100 0.15\nmath 20 0.05\n", output = "web 0.40\ncode 1.50\nmath 2.50\n" },
+  { input = "15000\nweb 30000 0.7\ncode 2000 0.15\nmath 500 0.07\nbooks 400 0.05\nmulti 3000 0.03\n", output = "web 0.35\ncode 1.12\nmath 2.10\nbooks 1.88\nmulti 0.15\n" },
+  { input = "10\ntiny 3 1.0\n", output = "tiny 3.33\n" },
+]
+
+[[exercise]]
+id = "decontam"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "minhash-why"
+kind = "choice"
+answer = 2
