@@ -27,6 +27,10 @@
 > [!TIP]
 > 完全没写过代码？先学姊妹仓库 [Our-tutorial](https://github.com/YeraldoSmith/Our-tutorial) 的「编程起步」和「Python」前 8 课，再回来。
 
+## 当前进度
+
+第 1～3 部分（预备知识、机器学习与神经网络、从零构建语言模型，共 19 课）已经完成，学完就能亲手训练一个小 GPT。第 4～8 部分正在编写，陆续更新。
+
 ## 怎么学
 
 **学习程序（推荐）**：到 [Releases](https://github.com/YeraldoSmith/LLM-Tutorial/releases) 下载对应系统的压缩包，解压运行 `LLMTutorial`。程序自带 Python，前三部分的绝大多数练习不需要安装任何东西。部分课程会用到 `numpy`、`torch`，按课文提示用 `pip install` 安装即可。

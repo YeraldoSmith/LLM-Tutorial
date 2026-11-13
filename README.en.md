@@ -27,6 +27,10 @@ A course on large language models that works **from absolute zero**: it starts w
 > [!TIP]
 > Never written code? Do "Start here" and the first 8 Python lessons of the sister repository [Our-tutorial](https://github.com/YeraldoSmith/Our-tutorial) first.
 
+## Progress
+
+Parts 1–3 (foundations, machine learning and neural networks, building a language model from scratch — 19 lessons) are complete; by the end you train a small GPT yourself. Parts 4–8 are being written and will arrive lesson by lesson.
+
 ## How to learn
 
 **The app (recommended)**: download the archive for your system from [Releases](https://github.com/YeraldoSmith/LLM-Tutorial/releases) and run `LLMTutorial`. It includes Python, so most exercises in parts 1–3 need nothing else. Some lessons use `numpy` or `torch`; install them with `pip install` as the lesson explains.

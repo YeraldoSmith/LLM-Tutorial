@@ -27,6 +27,10 @@
 > [!TIP]
 > 完全沒寫過程式碼？先學姊妹倉庫 [Our-tutorial](https://github.com/YeraldoSmith/Our-tutorial) 的「程式設計起步」和「Python」前 8 課，再回來。
 
+## 當前進度
+
+第 1～3 部分（預備知識、機器學習與神經網路、從零構建語言模型，共 19 課）已經完成，學完就能親手訓練一個小 GPT。第 4～8 部分正在編寫，陸續更新。
+
 ## 怎麼學
 
 **學習程式（推薦）**：到 [Releases](https://github.com/YeraldoSmith/LLM-Tutorial/releases) 下載對應系統的壓縮包，解壓執行 `LLMTutorial`。程式自帶 Python，前三部分的絕大多數練習不需要安裝任何東西。部分課程會用到 `numpy`、`torch`，按課文提示用 `pip install` 安裝即可。
