@@ -1,0 +1,89 @@
+[[exercise]]
+id = "param-count"
+kind = "code"
+starter = '''
+L, d, V = map(int, input().split())
+'''
+solution = '''
+L, d, V = map(int, input().split())
+params = 12 * L * d * d + V * d
+print(f"{params / 1e6:.1f}M")
+'''
+tests = [
+  { input = "12 768 50257\n", output = "123.5M\n" },
+  { input = "24 1024 50257\n", output = "353.5M\n" },
+  { input = "32 4096 128256\n", output = "6967.8M\n" },
+  { input = "2 64 100\n", output = "0.1M\n" },
+  { input = "96 12288 50257\n", output = "174563.7M\n" },
+]
+
+[[exercise]]
+id = "train-days"
+kind = "code"
+starter = '''
+N, D, gpus, tflops, mfu = map(float, input().split())
+'''
+solution = '''
+N, D, gpus, tflops, mfu = map(float, input().split())
+flops = 6 * N * 1e9 * D * 1e9
+days = flops / (gpus * tflops * 1e12 * mfu) / 86400
+print(f"{days:.1f}")
+'''
+tests = [
+  { input = "8 15000 1024 989 0.4\n", output = "20.6\n" },
+  { input = "70 15000 4096 989 0.4\n", output = "45.0\n" },
+  { input = "0.124 10 1 312 0.3\n", output = "0.9\n" },
+  { input = "405 15600 16384 989 0.38\n", output = "71.3\n" },
+  { input = "1 20 8 989 0.5\n", output = "0.4\n" },
+]
+
+[[exercise]]
+id = "chinchilla-opt"
+kind = "code"
+starter = '''
+C = float(input())
+'''
+solution = '''
+C = float(input())
+N = (C / 120) ** 0.5
+D = 20 * N
+print(f"{N / 1e9:.1f} {D / 1e9:.1f}")
+'''
+tests = [
+  { input = "1e23\n", output = "28.9 577.4\n" },
+  { input = "5.76e23\n", output = "69.3 1385.6\n" },
+  { input = "1e21\n", output = "2.9 57.7\n" },
+  { input = "3.8e25\n", output = "562.7 11254.6\n" },
+  { input = "6e20\n", output = "2.2 44.7\n" },
+]
+
+[[exercise]]
+id = "adam-memory"
+kind = "code"
+starter = '''
+N, mem = map(float, input().split())
+'''
+solution = '''
+import math
+
+N, mem = map(float, input().split())
+need = 16 * N
+print(f"{need:.0f} {math.ceil(need / mem)}")
+'''
+tests = [
+  { input = "70 80\n", output = "1120 14\n" },
+  { input = "8 80\n", output = "128 2\n" },
+  { input = "1 24\n", output = "16 1\n" },
+  { input = "405 141\n", output = "6480 46\n" },
+  { input = "7 40\n", output = "112 3\n" },
+]
+
+[[exercise]]
+id = "six-nd"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "chinchilla-lesson"
+kind = "choice"
+answer = 2
