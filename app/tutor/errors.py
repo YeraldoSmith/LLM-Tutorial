@@ -70,6 +70,8 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp"), r"expected (?:',' or )?';' before", "c-semicolon"),
     (("c", "cpp"), r"error: expected ';'", "c-semicolon"),
     (("c", "cpp"), r"implicit declaration of function 'gets'|'gets' was not declared", "c-gets"),
+    (("c",), r"include '<(?P<h>[\w./]+)>' or provide a declaration of '(?P<name>\w+)'", "c-include-hint"),
+    (("cpp",), r"'(?P<name>[\w:]+)' is defined in header '<(?P<h>[\w./]+)>'", "c-include-hint"),
     (("c",), r"'(?P<name>\w+)' undeclared", "c-undeclared"),
     (("cpp",), r"'(?P<name>\w+)' was not declared in this scope", "c-undeclared"),
     (("c", "cpp"), r"use of undeclared identifier '(?P<name>\w+)'", "c-undeclared"),
@@ -86,6 +88,7 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("c", "cpp"), r"runtime error: index (?P<idx>-?\d+) out of bounds for type", "c-array-bounds"),
     (("c", "cpp"), r"AddressSanitizer: heap-use-after-free", "c-asan-uaf"),
     (("c", "cpp"), r"AddressSanitizer: attempting double-free", "c-asan-double-free"),
+    (("c", "cpp"), r"AddressSanitizer: attempting free on address which was not malloc\(\)-ed", "c-free-nonheap"),
     (("c", "cpp"), r"LeakSanitizer: detected memory leaks", "c-asan-leak"),
     (("c", "cpp"), r"AddressSanitizer: stack-overflow", "recursion"),
     (("c", "cpp"), r"AddressSanitizer: SEGV on unknown address (?:0x0{6,}\b|\(nil\))", "c-null"),
@@ -102,6 +105,8 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
     (("cpp",), r"incompatible types in assignment of '[^']*' to '\w+ \[\d+\]'", "c-array-assign"),
     (("c", "cpp"), r"comparison with string literal results in unspecified behavior|comparison between two arrays", "c-str-eq"),
     (("c", "cpp"), r"function returns address of local variable|address of local variable '\w+' returned", "c-return-local"),
+    (("c", "cpp"), r"pointer '(?P<name>\w+)' (?:may be )?used after '(?:free|realloc)'", "c-use-after-free"),
+    (("c", "cpp"), r"'free' called on (?:unallocated object '(?P<name>\w+)'|pointer '(?P<name2>\w+)' with nonzero offset)", "c-free-nonheap"),
     (("c",), r"makes (?:pointer from integer|integer from pointer) without a cast", "c-ptr-int"),
     (("c", "cpp"), r"passing argument 4 of 'qsort' from incompatible pointer type", "c-qsort-cmp"),
     (("c",), r"(?:from|to) incompatible pointer type", "c-ptr-type"),
@@ -175,6 +180,11 @@ PATTERNS: list[tuple[tuple[str, ...] | str, str, str]] = [
 ]
 
 
+# A more precise explanation that makes another one redundant (e.g. "include <stdlib.h>"
+# says everything "implicit declaration of malloc" would).
+COVERS = {"c-include-hint": ("c-implicit", "c-undeclared", "cpp-std-member")}
+
+
 def explain(lang: str, text: str, exit_code: int | None, timed_out: bool, tr) -> list[str]:
     """Return localized explanations (each a short Markdown string). ``tr(key, **kw)``
     must return None when a translation is missing."""
@@ -197,6 +207,7 @@ def explain(lang: str, text: str, exit_code: int | None, timed_out: bool, tr) ->
         if not m:
             continue
         seen.add(key)
+        seen.update(COVERS.get(key, ()))
         spans.append(m.span())
         values = {k: v for k, v in m.groupdict().items() if v is not None}
         if "name2" in values and "name" not in values:

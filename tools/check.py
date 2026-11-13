@@ -46,9 +46,13 @@ def main() -> int:
     ap.add_argument("--no-run", action="store_true")
     ap.add_argument("--examples", action="store_true")
     ap.add_argument("--jobs", type=int, default=4)
+    ap.add_argument("--sanitize", action="store_true",
+                    help="build C/C++ with AddressSanitizer + UBSan (examples marked `ub` are skipped)")
     args = ap.parse_args()
     lib = Library(args.root)
-    chains = runners.Toolchains()
+    chains = runners.Toolchains({"sanitize": args.sanitize})
+    if args.sanitize and not (chains.sanitizer_ok("c") or chains.sanitizer_ok("cpp")):
+        print("note: this compiler can't build with AddressSanitizer; --sanitize has no effect")
     problems: list[str] = []
     jobs = []
     skipped: set[str] = set()
@@ -102,7 +106,8 @@ def main() -> int:
                         n_ex += 1
                 if args.examples and loc in REQUIRED and not args.no_run:
                     for k, block in enumerate(render(body).code_blocks):
-                        if block.runnable:
+                        # `ub`: the example shows undefined behaviour on purpose (e.g. reading past an array)
+                        if block.runnable and not (args.sanitize and re.search(r"(?:^|\s)ub(?:\s|$)", block.info)):
                             m = re.search(r'input="([^"]*)"', block.info)
                             stdin = m.group(1).replace("\\n", "\n").replace("\\t", "\t") + "\n" if m else None   # keeps non-ASCII text intact
                             req = re.search(r'requires=([\w,.-]+)', block.info)
