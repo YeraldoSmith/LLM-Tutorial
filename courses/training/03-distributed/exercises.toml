@@ -1,0 +1,86 @@
+[[exercise]]
+id = "zero-memory"
+kind = "code"
+starter = '''
+N, n, stage = input().split()
+'''
+solution = '''
+N, n, stage = input().split()
+N, n, stage = float(N), int(n), int(stage)
+per_param = {0: 16, 1: 4 + 12 / n, 2: 2 + 14 / n, 3: 16 / n}[stage]
+print(f"{N * per_param:.1f}")
+'''
+tests = [
+  { input = "70 64 3\n", output = "17.5\n" },
+  { input = "70 64 0\n", output = "1120.0\n" },
+  { input = "70 64 1\n", output = "293.1\n" },
+  { input = "70 64 2\n", output = "155.3\n" },
+  { input = "8 8 3\n", output = "16.0\n" },
+  { input = "405 1024 2\n", output = "815.5\n" },
+  { input = "1.5 4 1\n", output = "10.5\n" },
+]
+
+[[exercise]]
+id = "pipeline-bubble"
+kind = "code"
+starter = '''
+p, m = map(int, input().split())
+'''
+solution = '''
+p, m = map(int, input().split())
+print(f"{(p - 1) / (m + p - 1):.3f}")
+'''
+tests = [
+  { input = "8 16\n", output = "0.304\n" },
+  { input = "8 1\n", output = "0.875\n" },
+  { input = "4 32\n", output = "0.086\n" },
+  { input = "16 64\n", output = "0.190\n" },
+  { input = "1 10\n", output = "0.000\n" },
+]
+
+[[exercise]]
+id = "ring-traffic"
+kind = "code"
+starter = '''
+S, n = input().split()
+'''
+solution = '''
+S, n = input().split()
+S, n = float(S), int(n)
+print(f"{2 * (n - 1) / n * S:.2f}")
+'''
+tests = [
+  { input = "16 8\n", output = "28.00\n" },
+  { input = "16 2\n", output = "16.00\n" },
+  { input = "140 1024\n", output = "279.73\n" },
+  { input = "0.5 4\n", output = "0.75\n" },
+  { input = "10 1\n", output = "0.00\n" },
+]
+
+[[exercise]]
+id = "global-batch"
+kind = "code"
+starter = '''
+seq, micro, accum, gpus = map(int, input().split())
+'''
+solution = '''
+seq, micro, accum, gpus = map(int, input().split())
+tokens = seq * micro * accum * gpus
+print(tokens, f"{tokens / 1e6:.2f}")
+'''
+tests = [
+  { input = "8192 2 4 128\n", output = "8388608 8.39\n" },
+  { input = "1024 8 1 1\n", output = "8192 0.01\n" },
+  { input = "4096 1 16 512\n", output = "33554432 33.55\n" },
+  { input = "2048 4 8 64\n", output = "4194304 4.19\n" },
+]
+
+[[exercise]]
+id = "why-bf16"
+kind = "choice"
+answer = 1
+
+[[exercise]]
+id = "zero3"
+kind = "choice"
+answer = 2
